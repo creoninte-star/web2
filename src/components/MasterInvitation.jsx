@@ -41,21 +41,6 @@ const DecorativeBorders = () => {
         transition={{ duration: 1.5, ease: "easeOut", delay: 0.4 }}
         viewport={{ once: true }}
       />
-      {/* Side Flourishes */}
-      <motion.div 
-        className="absolute top-[30%] -left-3 w-6 h-16 border-r-2 border-y-2 border-gold/50 rounded-r-full pointer-events-none"
-        initial={{ width: 0, opacity: 0 }}
-        whileInView={{ width: 24, opacity: 1 }}
-        transition={{ duration: 1, delay: 1 }}
-        viewport={{ once: true }}
-      />
-      <motion.div 
-        className="absolute top-[30%] -right-3 w-6 h-16 border-l-2 border-y-2 border-gold/50 rounded-l-full pointer-events-none"
-        initial={{ width: 0, opacity: 0 }}
-        whileInView={{ width: 24, opacity: 1 }}
-        transition={{ duration: 1, delay: 1 }}
-        viewport={{ once: true }}
-      />
       
       {/* Laser Cut Mandala Accents inside corners */}
       <motion.div 
@@ -151,8 +136,7 @@ const MasterInvitation = () => {
             {/* Divider Line in Middle */}
             <div className="absolute top-4 bottom-4 -right-1 w-px bg-gradient-to-b from-transparent via-gold/60 to-transparent"></div>
             
-            <h2 className="font-serif text-xl sm:text-2xl text-textDark italic drop-shadow-sm leading-tight mb-2">Rafeel<br/><span className="text-sm">&</span><br/>Jumana</h2>
-            <h3 className="font-sans text-[7px] uppercase tracking-[0.2em] text-gold mb-3">First Couple</h3>
+            <h2 className="font-serif text-[1.4rem] sm:text-2xl text-textDark italic drop-shadow-sm leading-tight mb-4">Rafeel<br/><span className="text-sm">&</span><br/>Jumana</h2>
             
             <p className="font-sans text-[9px] uppercase tracking-widest text-sage mb-1">Nikkah Function</p>
             <div className="w-6 h-px bg-gold/50 my-1"></div>
@@ -168,8 +152,7 @@ const MasterInvitation = () => {
 
           {/* Couple 2 Panel */}
           <div className="flex-1 flex flex-col border-t border-b border-gold/40 py-4 text-center items-center justify-start">
-            <h2 className="font-serif text-xl sm:text-2xl text-textDark italic drop-shadow-sm leading-tight mb-2">Rizwan<br/><span className="text-sm">&</span><br/>Nidha</h2>
-            <h3 className="font-sans text-[7px] uppercase tracking-[0.2em] text-gold mb-3">Second Couple</h3>
+            <h2 className="font-serif text-[1.4rem] sm:text-2xl text-textDark italic drop-shadow-sm leading-tight mb-4">Rizwan<br/><span className="text-sm">&</span><br/>Nidha</h2>
             
             <p className="font-sans text-[9px] uppercase tracking-widest text-sage mb-1">Marriage Function</p>
             <div className="w-6 h-px bg-gold/50 my-1"></div>
@@ -183,41 +166,9 @@ const MasterInvitation = () => {
           </div>
         </motion.div>
 
-        {/* Family Honors Section */}
-        <motion.div 
-          className="z-10 w-full text-center px-2 mb-8 bg-envelope/50 rounded p-4 border border-gold/20"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.4 }}
-          viewport={{ once: true }}
-        >
-          <h4 className="font-sans text-[8px] uppercase tracking-[0.3em] text-gold mb-2">Requested by Parents</h4>
-          <p className="font-sans text-[9px] leading-relaxed tracking-wider text-sage/90 uppercase">
-            Rafeek & Sareena <span className="lowercase text-[7px] text-textDark/50">(Grooms' Parents)</span>,
-            <br/>
-            Sulaiman & Minsiya <span className="lowercase text-[7px] text-textDark/50">(Nidha's)</span>,
-            <br/>
-            <span className="normal-case font-serif text-[11px] text-textDark/90 tracking-normal mt-1 block">
-              and Najma <span className="text-[9px] italic text-textDark/60">(Jumana's — honoring the memory of Late Rasak)</span>
-            </span>
-          </p>
-        </motion.div>
-
-        {/* Seated Couple Illustration */}
-        <motion.div 
-          className="relative w-64 h-64 sm:w-72 sm:h-72 mt-2 z-10"
-          initial={{ opacity: 0, scale: 0.9, y: 20 }}
-          whileInView={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 1.6 }}
-          viewport={{ once: true }}
-        >
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-gold/20 via-transparent to-transparent opacity-60 rounded-full blur-xl mb-4"></div>
-          <img 
-            src="/seated_couple.png" 
-            alt="Seated Couple Illustration" 
-            className="w-full h-full object-contain relative z-10 drop-shadow-xl"
-          />
-        </motion.div>
+        {/* Physical Card Fold Crease */}
+        <div className="absolute top-0 bottom-0 left-1/2 -ml-[1px] w-[2px] bg-gradient-to-b from-transparent via-gold/10 to-transparent shadow-[inset_1px_0_2px_rgba(0,0,0,0.05)] pointer-events-none"></div>
+        <div className="absolute top-0 bottom-0 left-[calc(50%-10px)] w-[20px] bg-gradient-to-r from-transparent via-black/[0.03] to-transparent pointer-events-none mix-blend-multiply"></div>
 
       </motion.div>
     </div>

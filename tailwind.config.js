@@ -9,8 +9,8 @@ export default {
       colors: {
         envelope: '#F6EAEB', // Soft blush pink base
         paper: '#FAF6F0',   // Warm cream/beige
-        sage: '#9EB0A2',    // Sage green
-        gold: '#D4AF37',    // Soft gold accents
+        sage: '#899E8F',    // Deepened Sage green for contrast
+        gold: '#B68222',    // Deeper, high-contrast rich gold
         'seal-red': '#A83B40', // Ivory/gold was requested but the description also called it "realistic ivory/gold Wax Seal"
         'wax-seal': '#EADDCE', // Ivory/gold seal base
         'wax-seal-border': '#D4AF37', // Gold 
