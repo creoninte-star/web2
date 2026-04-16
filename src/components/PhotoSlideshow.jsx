@@ -28,11 +28,13 @@ const PhotoSlideshow = ({ images, interval = 4000 }) => {
           <img
             src={images[index]}
             alt="Couple portrait"
+            decoding="async"
             className="w-full h-full object-cover"
             style={{
-              filter: 'grayscale(1) contrast(1.15) brightness(1.05) sepia(0.1)',
+              filter: 'grayscale(1) brightness(1.1)',
               mixBlendMode: 'multiply',
-              opacity: 0.9
+              opacity: 0.9,
+              willChange: 'opacity'
             }}
           />
           

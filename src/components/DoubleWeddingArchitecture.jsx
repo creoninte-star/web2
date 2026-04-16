@@ -119,24 +119,25 @@ const DoubleWeddingArchitecture = () => {
     offset: ["start start", "end end"]
   });
 
-  // PAGE 1: Book View (0 to 0.2)
-  const bookOpacity = useTransform(scrollYProgress, [0.05, 0.2], [1, 0]);
-  const bookScale = useTransform(scrollYProgress, [0, 0.2], [1, 0.8]);
-  const bookY = useTransform(scrollYProgress, [0, 0.2], ["0%", "-10%"]);
-
-  // PAGE 2: Card 1 - Rafeel & Jumana (0.2 to 0.6)
-  const card1Opacity = useTransform(scrollYProgress, [0.15, 0.3, 0.5, 0.6], [0, 1, 1, 0]);
-  const card1Scale = useTransform(scrollYProgress, [0.15, 0.3, 0.5, 0.6], [0.8, 1, 1, 0.9]);
-  const card1Y = useTransform(scrollYProgress, [0.15, 0.3, 0.5, 0.6], ["20%", "0%", "0%", "-15%"]);
-
-  // PAGE 3: Card 2 - Rizwan & Nidha (0.55 to 1.0)
-  const card2Opacity = useTransform(scrollYProgress, [0.55, 0.7, 0.9, 1.0], [0, 1, 1, 1]);
-  const card2Scale = useTransform(scrollYProgress, [0.55, 0.7], [0.8, 1]);
-  const card2Y = useTransform(scrollYProgress, [0.55, 0.7], ["20%", "0%"]);
-
-  const pathDraw = useTransform(scrollYProgress, [0.15, 0.3], [0, 1]);
-
-  return (
+    // PAGE 1: Book View (Start fading immediately to avoid "stuck" feeling)
+    const bookOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0]);
+    const bookScale = useTransform(scrollYProgress, [0, 0.15], [1, 0.8]);
+    const bookY = useTransform(scrollYProgress, [0, 0.15], ["0%", "-5%"]);
+  
+    // PAGE 2: Card 1 - Rafeel & Jumana
+    const card1Opacity = useTransform(scrollYProgress, [0.05, 0.2, 0.45, 0.55], [0, 1, 1, 0]);
+    const card1Scale = useTransform(scrollYProgress, [0.05, 0.2, 0.45, 0.55], [0.9, 1, 1, 0.9]);
+    const card1Y = useTransform(scrollYProgress, [0.05, 0.2, 0.45, 0.55], ["10%", "0%", "0%", "-10%"]);
+  
+    // PAGE 3: Card 2 - Rizwan & Nidha (Starts as Card 1 fades out)
+    const card2Opacity = useTransform(scrollYProgress, [0.45, 0.6, 0.9, 1.0], [0, 1, 1, 1]);
+    const card2Scale = useTransform(scrollYProgress, [0.45, 0.6], [0.9, 1]);
+    const card2Y = useTransform(scrollYProgress, [0.45, 0.6], ["10%", "0%"]);
+  
+    const pathDraw = useTransform(scrollYProgress, [0.1, 0.3], [0, 1]);
+  
+  
+    return (
     <div ref={containerRef} className="relative h-[400vh] w-full pt-8">
       
       <div className="sticky top-0 h-[100vh] sm:h-screen w-full flex flex-col items-center justify-center overflow-hidden z-20 pointer-events-none">
