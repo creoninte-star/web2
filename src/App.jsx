@@ -4,6 +4,10 @@ import DoubleWeddingArchitecture from './components/DoubleWeddingArchitecture';
 import EventSections from './components/EventSections';
 import VenueMaps from './components/VenueMaps';
 import ClosingMessage from './components/ClosingMessage';
+import MusicPlayer from './components/MusicPlayer';
+import FooterRSVP from './components/FooterRSVP';
+
+
 
 function App() {
   const [isOpened, setIsOpened] = useState(false);
@@ -16,7 +20,11 @@ function App() {
       {/* App Container - Mobile App Feel max width */}
       <div className="max-w-md w-full mx-auto min-h-screen relative shadow-2xl bg-paper">
         
+        {/* Music Control - stays on top after opening */}
+        <MusicPlayer isOpened={isOpened} />
+        
         {/* Envelope Covers everything initially */}
+
         {!isOpened && <HeroEnvelope onOpen={() => setIsOpened(true)} />}
 
         {/* The actual Invitation Content */}
@@ -25,6 +33,7 @@ function App() {
           
           <EventSections />
           <VenueMaps />
+          <FooterRSVP />
           <ClosingMessage />
           
         </div>

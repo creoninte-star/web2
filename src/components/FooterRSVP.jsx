@@ -70,24 +70,6 @@ const FooterRSVP = () => {
             </button>
           </form>
 
-          {/* Barcode Graphic */}
-          <div className="flex justify-between items-end h-16 opacity-70 px-4">
-             {/* Simple visual barcode imitation using CSS */}
-             {Array.from({ length: 30 }).map((_, i) => (
-                <div 
-                  key={i} 
-                  className="bg-textDark"
-                  style={{
-                    width: `${Math.random() * 3 + 1}px`,
-                    height: `${Math.random() > 0.8 ? '100%' : '80%'}`,
-                    marginRight: `${Math.random() * 2}px`
-                  }}
-                ></div>
-             ))}
-          </div>
-          <div className="text-center mt-2 font-sans text-[8px] tracking-[0.3em] text-textDark/60">
-            06052026 - 07052026
-          </div>
         </div>
       </div>
     </motion.section>

@@ -1,5 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useMotionTemplate } from 'framer-motion';
+import PhotoSlideshow from './PhotoSlideshow';
+
 
 const Rings = () => (
   <motion.div 
@@ -33,7 +35,8 @@ const MandalaBackdrop = ({ scrollYProgress }) => {
   );
 };
 
-const OrnateSingleCard = ({ couple, eventType, date, time, highlight, venue, parentsInfo, pathDraw }) => (
+const OrnateSingleCard = ({ couple, eventType, date, time, highlight, venue, parentsInfo, pathDraw, photos }) => (
+
   <div className="w-full h-full relative p-4 flex flex-col items-center z-10 paper-bg bg-paper shadow-2xl rounded-t-[140px] rounded-b-xl border-[4px] border-white/50 overflow-hidden">
     <div className="absolute inset-0 rounded-t-[136px] rounded-b-lg border-[2px] border-gold/30 pointer-events-none"></div>
     
@@ -76,9 +79,14 @@ const OrnateSingleCard = ({ couple, eventType, date, time, highlight, venue, par
         <p className="font-serif text-xs text-textDark/70 leading-relaxed">{venue}</p>
       </div>
       
-      <div className="w-full max-w-[160px] aspect-square mt-auto mb-4 rounded-t-full border border-gold/40 border-dashed flex items-center justify-center bg-envelope/50 shrink-0">
-         <span className="text-[9px] text-gold/70 uppercase tracking-widest">Image Placeholder</span>
+      <div className="w-full max-w-[160px] aspect-square mt-auto mb-4 rounded-t-full border border-gold/40 border-dashed flex items-center justify-center bg-envelope/50 shrink-0 relative overflow-hidden">
+         {photos && photos.length > 0 ? (
+           <PhotoSlideshow images={photos} />
+         ) : (
+           <span className="text-[9px] text-gold/70 uppercase tracking-widest">Image Placeholder</span>
+         )}
       </div>
+
 
     </div>
   </div>
@@ -86,6 +94,23 @@ const OrnateSingleCard = ({ couple, eventType, date, time, highlight, venue, par
 
 const DoubleWeddingArchitecture = () => {
   const containerRef = useRef(null);
+
+  const couple1Photos = [
+    "/Rafeel&Jumana photos/WhatsApp%20Image%202026-04-16%20at%209.31.24%20PM%20(1).jpeg",
+    "/Rafeel&Jumana photos/WhatsApp%20Image%202026-04-16%20at%209.31.24%20PM.jpeg"
+  ];
+
+  const couple2Photos = [
+    "/Rizwan&Nidha photos/WhatsApp%20Image%202026-04-16%20at%209.31.51%20PM.jpeg",
+    "/Rizwan&Nidha photos/WhatsApp%20Image%202026-04-16%20at%209.31.52%20PM%20(1).jpeg",
+    "/Rizwan&Nidha photos/WhatsApp%20Image%202026-04-16%20at%209.31.52%20PM%20(2).jpeg",
+    "/Rizwan&Nidha photos/WhatsApp%20Image%202026-04-16%20at%209.31.52%20PM.jpeg",
+    "/Rizwan&Nidha photos/WhatsApp%20Image%202026-04-16%20at%209.31.53%20PM%20(1).jpeg",
+    "/Rizwan&Nidha photos/WhatsApp%20Image%202026-04-16%20at%209.31.53%20PM%20(2).jpeg",
+    "/Rizwan&Nidha photos/WhatsApp%20Image%202026-04-16%20at%209.31.53%20PM.jpeg",
+    "/Rizwan&Nidha photos/WhatsApp%20Image%202026-04-16%20at%209.31.54%20PM.jpeg"
+  ];
+
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -157,6 +182,7 @@ const DoubleWeddingArchitecture = () => {
               highlight="Bride Entry 5:30 - 6:00 PM"
               venue={<span>Zareena Manzil,<br/>Koothparamb</span>}
               pathDraw={pathDraw}
+              photos={couple1Photos}
            />
         </motion.div>
 
@@ -172,6 +198,7 @@ const DoubleWeddingArchitecture = () => {
               time="Starting at 12:00 PM"
               venue={<span>Vajra Auditorium,<br/>Mooriyad Road</span>}
               pathDraw={pathDraw}
+              photos={couple2Photos}
            />
         </motion.div>
 
