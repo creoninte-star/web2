@@ -174,8 +174,13 @@ const DoubleWeddingArchitecture = () => {
 
         {/* --- PAGE 2: CARD FOR COUPLE 1 --- */}
         <motion.div
-          className="absolute inset-x-4 inset-y-10 sm:inset-x-8 sm:inset-y-12 z-20 pointer-events-auto"
-          style={{ opacity: card1Opacity, scale: card1Scale, y: card1Y }}
+          className="absolute inset-x-4 inset-y-10 sm:inset-x-8 sm:inset-y-12 z-20 pointer-events-auto flex items-center justify-center"
+          style={{ 
+            opacity: card1Opacity, 
+            scale: card1Scale, 
+            y: card1Y,
+            pointerEvents: useTransform(scrollYProgress, v => v > 0.55 ? "none" : "auto") 
+          }}
         >
            <OrnateSingleCard 
               couple="Rafeel & Jumana"
@@ -186,13 +191,18 @@ const DoubleWeddingArchitecture = () => {
               venue={<span>Zareena Manzil,<br/>Koothparamb</span>}
               pathDraw={pathDraw}
               photos={couple1Photos}
-           />
+            />
         </motion.div>
 
         {/* --- PAGE 3: CARD FOR COUPLE 2 --- */}
         <motion.div
-          className="absolute inset-x-4 inset-y-10 sm:inset-x-8 sm:inset-y-12 z-30 pointer-events-auto"
-          style={{ opacity: card2Opacity, scale: card2Scale, y: card2Y }}
+          className="absolute inset-x-4 inset-y-10 sm:inset-x-8 sm:inset-y-12 z-30 pointer-events-auto flex items-center justify-center"
+          style={{ 
+            opacity: card2Opacity, 
+            scale: card2Scale, 
+            y: card2Y,
+            pointerEvents: useTransform(scrollYProgress, v => v > 0.55 ? "auto" : "none")
+          }}
         >
            <OrnateSingleCard 
               couple="Rizwan & Nidha"
