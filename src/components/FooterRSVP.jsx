@@ -97,7 +97,6 @@ const FooterRSVP = () => {
 
         {/* Ticket Top - RSVP */}
         <div className="p-8 border-b-2 border-dashed border-sage/30 relative">
-          <h3 className="font-sans text-[10px] uppercase tracking-widest text-gold mb-1">RSVP</h3>
           <h2 className="font-serif text-3xl text-textDark mb-4">Count Me In!</h2>
           
         </div>
