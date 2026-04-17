@@ -95,17 +95,9 @@ function App() {
           
           <EventSections onAllRevealed={() => setAllRevealed(true)} />
           
-          {allRevealed && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1 }}
-            >
-              <VenueMaps />
-              <FooterRSVP />
-              <ClosingMessage />
-            </motion.div>
-          )}
+          <VenueMaps />
+          <FooterRSVP />
+          <ClosingMessage />
           
         </div>
 
