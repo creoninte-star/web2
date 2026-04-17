@@ -64,16 +64,36 @@ const ScratchCardDate = ({ dateString, onReveal }) => {
         const xPos = (rect.left + rect.width / 2) / window.innerWidth;
         const yPos = (rect.top + rect.height / 2) / window.innerHeight;
         
+        // MASSIVE CELEBRATION
         confetti({
-          particleCount: 150,
-          spread: 80,
+          particleCount: 350,
+          spread: 120,
           origin: { x: xPos, y: yPos },
-          colors: ['#D4AF37', '#FAF6F0', '#655743'],
+          colors: ['#D4AF37', '#FAF6F0', '#655743', '#B68222', '#C5A039'],
           disableForReducedMotion: true,
-          gravity: 0.8,
-          startVelocity: 35,
-          scalar: 1.2
+          gravity: 0.9,
+          startVelocity: 45,
+          scalar: 1.3,
+          ticks: 300
         });
+
+        // Extra side blasts for depth
+        setTimeout(() => {
+          confetti({
+            particleCount: 80,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0, y: yPos },
+            colors: ['#D4AF37', '#FAF6F0'],
+          });
+          confetti({
+            particleCount: 80,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1, y: yPos },
+            colors: ['#D4AF37', '#FAF6F0'],
+          });
+        }, 200);
       }
     }
   }, [revealed]);
@@ -93,25 +113,27 @@ const ScratchCardDate = ({ dateString, onReveal }) => {
 
     ctx.globalCompositeOperation = 'destination-out';
     ctx.beginPath();
-    ctx.arc(x, y, 16, 0, Math.PI * 2);
+    ctx.arc(x, y, 18, 0, Math.PI * 2);
     ctx.fill();
 
     setScratchCount(prev => {
       const next = prev + 1;
       
-      if (next % 4 === 0) {
+      // Intense mini-pops during scratching
+      if (next % 3 === 0) {
         confetti({
-          particleCount: 4,
+          particleCount: 10,
+          spread: 60,
           origin: { x: clientX / window.innerWidth, y: clientY / window.innerHeight },
-          colors: ['#D4AF37', '#B68222'],
+          colors: ['#D4AF37', '#B68222', '#FAF6F0'],
           gravity: 2,
-          startVelocity: 15,
-          scalar: 0.5,
-          ticks: 30
+          startVelocity: 20,
+          scalar: 0.7,
+          ticks: 40
         });
       }
 
-      if (next > 25 && !revealed) { 
+      if (next > 22 && !revealed) { 
         setRevealed(true);
       }
       return next;
