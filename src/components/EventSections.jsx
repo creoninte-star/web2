@@ -84,6 +84,21 @@ const ScratchCardDate = ({ dateString, onReveal }) => {
 
     setScratchCount(prev => {
       const next = prev + 1;
+      
+      // Small popper effect during scratch
+      if (next % 3 === 0) {
+        confetti({
+          particleCount: 2,
+          angle: Math.random() * 360,
+          spread: 40,
+          origin: { x: clientX / window.innerWidth, y: clientY / window.innerHeight },
+          colors: ['#D4AF37', '#655743'],
+          gravity: 2,
+          scalar: 0.4,
+          ticks: 20
+        });
+      }
+
       if (next > 25 && !revealed) { 
         setRevealed(true);
       }
