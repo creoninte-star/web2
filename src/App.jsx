@@ -13,6 +13,7 @@ import confetti from 'canvas-confetti';
 
 function App() {
   const [isOpened, setIsOpened] = useState(false);
+  const [allRevealed, setAllRevealed] = useState(false);
 
   React.useEffect(() => {
     if (isOpened) {
@@ -65,10 +66,19 @@ function App() {
         <div className={`relative z-10 min-h-screen transition-opacity duration-1000 ${isOpened ? 'opacity-100' : 'opacity-0'}`}>
           <DoubleWeddingArchitecture />
           
-          <EventSections />
-          <VenueMaps />
-          <FooterRSVP />
-          <ClosingMessage />
+          <EventSections onAllRevealed={() => setAllRevealed(true)} />
+          
+          {allRevealed && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1 }}
+            >
+              <VenueMaps />
+              <FooterRSVP />
+              <ClosingMessage />
+            </motion.div>
+          )}
           
         </div>
 

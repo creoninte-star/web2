@@ -238,12 +238,18 @@ const EventCard = ({ title, dateString, targetDateIso, time, highlight, venue, o
   );
 };
 
-const EventSections = () => {
+const EventSections = ({ onAllRevealed }) => {
   const [revealedCount, setRevealedCount] = useState(0);
   const [forceShake, setForceShake] = useState(false);
   const containerRef = useRef(null);
   const sentinelRef = useRef(null);
   const isScrollingRef = useRef(false);
+
+  useEffect(() => {
+    if (revealedCount >= 2 && onAllRevealed) {
+      onAllRevealed();
+    }
+  }, [revealedCount, onAllRevealed]);
 
   useEffect(() => {
     // Stop observing once both are revealed
@@ -269,7 +275,7 @@ const EventSections = () => {
         setTimeout(() => {
           setForceShake(false);
           isScrollingRef.current = false;
-        }, 1500); // generous timeout prevents erratic double bounces
+        }, 1500); 
       }
     }, { threshold: 0.1 });
 
@@ -283,7 +289,7 @@ const EventSections = () => {
 
   return (
     <>
-      <div className="pb-16 flex flex-col items-center" ref={containerRef}>
+      <div className="pb-8 flex flex-col items-center" ref={containerRef}>
         <EventCard 
           title="Nikkah Ceremony"
           dateString="May 6, 2026"
@@ -305,8 +311,24 @@ const EventSections = () => {
           forceShake={forceShake}
         />
       </div>
+
+      <AnimatePresence>
+        {revealedCount < 2 && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.6 }}
+            exit={{ opacity: 0 }}
+            className="text-center pb-20"
+          >
+            <p className="font-sans text-[9px] uppercase tracking-[0.2em] text-gold animate-pulse">
+              Scratch both dates to unlock details
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Invisible element to detect scroll-past */}
-      <div ref={sentinelRef} className="w-full h-1 pointer-events-none opacity-0"></div>
+      <div ref={sentinelRef} className="w-full h-20 pointer-events-none opacity-0"></div>
     </>
   );
 };
