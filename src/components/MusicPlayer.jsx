@@ -31,13 +31,27 @@ const MusicPlayer = ({ isOpened }) => {
     }
   }, [isOpened]);
 
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.hidden && audioRef.current && isPlaying) {
+        audioRef.current.pause();
+        setIsPlaying(false);
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [isPlaying]);
+
   const togglePlay = (e) => {
     e.stopPropagation();
     if (audioRef.current) {
       if (isPlaying) {
         audioRef.current.pause();
       } else {
-        audioRef.current.play();
+        audioRef.current.play().catch(console.error);
       }
       setIsPlaying(!isPlaying);
     }
