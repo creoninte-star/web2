@@ -36,7 +36,7 @@ const MandalaBackdrop = ({ scrollYProgress }) => {
 };
 
 
-const OrnateSingleCard = ({ couple, eventType, date, time, highlight, venue, parentsInfo, pathDraw, photos }) => (
+const OrnateSingleCard = ({ couple, eventType, date, time, highlight, venue, parentsInfo, pathDraw, photos, photoPosition = "center" }) => (
 
   <div className="w-full h-full relative p-4 flex flex-col items-center z-10 paper-bg bg-paper shadow-xl rounded-t-[140px] rounded-b-xl border-[3px] border-white/40 overflow-hidden transform-gpu">
     <div className="absolute inset-0 rounded-t-[136px] rounded-b-lg border border-gold/20 pointer-events-none"></div>
@@ -83,7 +83,7 @@ const OrnateSingleCard = ({ couple, eventType, date, time, highlight, venue, par
       
       <div className="w-full max-w-[260px] h-[240px] mt-auto mb-4 rounded-t-[140px] rounded-b-xl border border-gold/40 border-dashed flex items-center justify-center bg-envelope/50 shrink-0 relative overflow-hidden shadow-inner">
          {photos && photos.length > 0 ? (
-           <PhotoSlideshow images={photos} />
+           <PhotoSlideshow images={photos} objectPosition={photoPosition} />
          ) : (
            <span className="text-[9px] text-gold/70 uppercase tracking-widest">Image Placeholder</span>
          )}
@@ -167,6 +167,7 @@ const DoubleWeddingArchitecture = () => {
               venue={<span><span className="font-bold">Nikkah:</span> Zareena Manzil, Koothparamb<br/><span className="font-bold">Marriage:</span> Vajra Auditorium, Mooriyad Road</span>}
               pathDraw={1}
               photos={couple1Photos}
+              photoPosition="center 5%"
             />
         </motion.div>
   
@@ -186,6 +187,7 @@ const DoubleWeddingArchitecture = () => {
               venue={<span><span className="font-bold">Nikkah:</span> Zareena Manzil, Koothparamb<br/><span className="font-bold">Marriage:</span> Vajra Auditorium, Mooriyad Road</span>}
               pathDraw={1}
               photos={couple2Photos}
+              photoPosition="center 5%"
            />
         </motion.div>
   

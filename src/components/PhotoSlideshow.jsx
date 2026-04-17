@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const PhotoSlideshow = ({ images, interval = 4000 }) => {
+const PhotoSlideshow = ({ images, interval = 4000, objectPosition = "center" }) => {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -31,6 +31,7 @@ const PhotoSlideshow = ({ images, interval = 4000 }) => {
             decoding="async"
             className="w-full h-full object-cover"
             style={{
+              objectPosition: objectPosition,
               filter: 'grayscale(1) brightness(1.1)',
               mixBlendMode: 'multiply',
               opacity: 0.9,
