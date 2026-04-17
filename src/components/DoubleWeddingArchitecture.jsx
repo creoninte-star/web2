@@ -39,19 +39,21 @@ const MandalaBackdrop = ({ scrollYProgress }) => {
 const OrnateSingleCard = ({ pathDraw }) => (
   <div className="w-full h-full relative p-6 flex flex-col items-center z-10 paper-bg bg-paper shadow-2xl rounded-t-[160px] rounded-b-xl border-[3px] border-white/40 overflow-hidden transform-gpu">
     {/* Ghosted Background Watermarks */}
-    <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden opacity-[0.08] grayscale">
-       <div className="absolute top-0 left-0 w-full h-1/2 overflow-hidden">
+    <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden opacity-[0.18] grayscale contrast-[1.1]">
+       <div className="absolute top-0 left-0 w-full h-[60%] overflow-hidden">
           <img 
             src="/refeel and jumana.jpeg" 
             alt="" 
-            className="w-full h-full object-cover scale-110 blur-[1px]" 
+            className="w-full h-full object-cover scale-110 blur-[0.5px]" 
+            style={{ objectPosition: 'center 20%' }}
           />
        </div>
-       <div className="absolute bottom-0 left-0 w-full h-1/2 overflow-hidden">
+       <div className="absolute bottom-0 left-0 w-full h-[60%] overflow-hidden">
           <img 
             src="/rizwan and nidha.jpeg" 
             alt="" 
-            className="w-full h-full object-cover scale-110 blur-[1px]" 
+            className="w-full h-full object-cover scale-110 blur-[0.5px]" 
+            style={{ objectPosition: 'center 15%' }}
           />
        </div>
     </div>
