@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import HeroEnvelope from './components/HeroEnvelope';
 import DoubleWeddingArchitecture from './components/DoubleWeddingArchitecture';
 import EventSections from './components/EventSections';

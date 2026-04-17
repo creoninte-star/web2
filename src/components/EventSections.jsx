@@ -17,7 +17,6 @@ const ScratchCardDate = ({ dateString, onReveal }) => {
     const canvas = canvasRef.current;
     if (!canvas || revealed) return;
     
-    // Handle high DPI displays for crisp text
     const dpr = window.devicePixelRatio || 1;
     const rect = canvas.getBoundingClientRect();
     
@@ -27,7 +26,6 @@ const ScratchCardDate = ({ dateString, onReveal }) => {
     const ctx = canvas.getContext('2d');
     ctx.scale(dpr, dpr);
     
-    // Fill background gradient (looks like a gold foil card)
     const gradient = ctx.createLinearGradient(0, 0, rect.width, rect.height);
     gradient.addColorStop(0, '#d8ccba');
     gradient.addColorStop(0.5, '#eaddce');
@@ -35,7 +33,6 @@ const ScratchCardDate = ({ dateString, onReveal }) => {
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, rect.width, rect.height);
     
-    // Add text "SCRATCH TO REVEAL DATE"
     ctx.fillStyle = '#655743';
     ctx.font = '8px Montserrat';
     ctx.textAlign = 'center';
@@ -44,14 +41,33 @@ const ScratchCardDate = ({ dateString, onReveal }) => {
     ctx.fillText('SCRATCH TO REVEAL', rect.width / 2, rect.height / 2);
   }, [revealed]);
 
+  useEffect(() => {
+    if (revealed) {
+      onReveal();
+      if (canvasRef.current) {
+        const rect = canvasRef.current.getBoundingClientRect();
+        const xPos = (rect.left + rect.width / 2) / window.innerWidth;
+        const yPos = (rect.top + rect.height / 2) / window.innerHeight;
+        
+        confetti({
+          particleCount: 30,
+          spread: 45,
+          origin: { x: xPos, y: yPos },
+          colors: ['#D4AF37', '#eaddce', '#655743'],
+          disableForReducedMotion: true,
+          ticks: 150,
+          scalar: 0.6
+        });
+      }
+    }
+  }, [revealed]);
+
   const scratch = (e) => {
-    if (revealed) return;
+    if (revealed || !canvasRef.current) return;
     
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
     const rect = canvas.getBoundingClientRect();
-    
-    // Normalize coordinates for device pixel ratio
     const dpr = window.devicePixelRatio || 1;
     
     const clientX = e.touches ? e.touches[0].clientX : e.clientX;
@@ -67,24 +83,8 @@ const ScratchCardDate = ({ dateString, onReveal }) => {
 
     setScratchCount(prev => {
       const next = prev + 1;
-      if (next > 25 && !revealed) { // Scratch threshold reached
+      if (next > 25 && !revealed) { 
         setRevealed(true);
-        onReveal();
-        
-        // Very minimal and elegant gold confetti celebration
-        const rect = canvasRef.current.getBoundingClientRect();
-        const xPos = (rect.left + rect.width / 2) / window.innerWidth;
-        const yPos = (rect.top + rect.height / 2) / window.innerHeight;
-        
-        confetti({
-          particleCount: 30,
-          spread: 45,
-          origin: { x: xPos, y: yPos },
-          colors: ['#D4AF37', '#eaddce', '#655743'],
-          disableForReducedMotion: true,
-          ticks: 150,
-          scalar: 0.6 // smaller particles for minimal look
-        });
       }
       return next;
     });
@@ -98,7 +98,6 @@ const ScratchCardDate = ({ dateString, onReveal }) => {
   const handleUp = () => setIsScratching(false);
   
   const handleMove = (e) => {
-    // Prevent default scrolling when touching the canvas to allow scratch interaction
     if (e.cancelable && e.touches) {
       e.preventDefault();
     }
@@ -112,28 +111,23 @@ const ScratchCardDate = ({ dateString, onReveal }) => {
       animate={!revealed && !isScratching ? { x: [0, -2, 2, 0], y: [0, -1, 1, 0] } : { x: 0, y: 0 }}
       transition={{ duration: 0.4, repeat: Infinity, repeatDelay: 2.5 }}
     >
-      {/* The actual date underneath */}
       <div className="absolute inset-0 flex items-center justify-center bg-envelope/30 rounded border border-gold/20 pointer-events-none">
         <p className="font-sans text-[10px] font-bold uppercase tracking-widest text-textDark drop-shadow-sm">{dateString}</p>
       </div>
 
-      {/* The Scratch Canvas */}
-      <AnimatePresence>
-        {!revealed && (
-          <motion.canvas
-            ref={canvasRef}
-            className="absolute inset-0 w-full h-full rounded shadow-sm touch-none"
-            onMouseDown={handleDown}
-            onMouseUp={handleUp}
-            onMouseLeave={handleUp}
-            onMouseMove={handleMove}
-            onTouchStart={handleDown}
-            onTouchEnd={handleUp}
-            onTouchMove={handleMove}
-            exit={{ opacity: 0, scale: 1.05, transition: { duration: 0.6 } }}
-          />
-        )}
-      </AnimatePresence>
+      {!revealed && (
+        <canvas
+          ref={canvasRef}
+          className="absolute inset-0 w-full h-full rounded shadow-sm touch-none transition-opacity duration-300"
+          onMouseDown={handleDown}
+          onMouseUp={handleUp}
+          onMouseLeave={handleUp}
+          onMouseMove={handleMove}
+          onTouchStart={handleDown}
+          onTouchEnd={handleUp}
+          onTouchMove={handleMove}
+        />
+      )}
     </motion.div>
   );
 };
