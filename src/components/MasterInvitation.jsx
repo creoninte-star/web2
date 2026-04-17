@@ -138,15 +138,15 @@ const MasterInvitation = () => {
             
             <h2 className="font-serif text-[1.4rem] sm:text-2xl text-textDark italic drop-shadow-sm leading-tight mb-4">Rafeel<br/><span className="text-sm">&</span><br/>Jumana</h2>
             
-            <p className="font-sans text-[9px] uppercase tracking-widest text-sage mb-1">Nikkah Function</p>
+            <p className="font-sans text-[9px] uppercase tracking-widest text-sage mb-1">Nikkah & Marriage</p>
             <div className="w-6 h-px bg-gold/50 my-1"></div>
             
-            <div className="space-y-2 mt-2">
-              <p className="font-serif text-[10px] text-textDark/90">May 6, 2026</p>
-              <p className="font-serif text-[10px] text-textDark/90 leading-tight">After Asar<br/>(4:00 PM onwards)</p>
-              <p className="font-serif text-[9px] text-gold/80 italic leading-tight">Special Moment:<br/>Bride Entry 5:30 - 6:00 PM</p>
+            <div className="space-y-1 mt-2">
+              <p className="font-serif text-[10px] font-bold text-textDark/90">May 6: Nikkah</p>
+              <p className="font-serif text-[9px] text-textDark/80 leading-tight">After Asar<br/>Zareena Manzil</p>
               <div className="w-4 h-px bg-sage/30 mx-auto my-1"></div>
-              <p className="font-serif text-[9px] text-textDark/80 leading-tight">Zareena Manzil,<br/>Koothparamb</p>
+              <p className="font-serif text-[10px] font-bold text-textDark/90">May 7: Marriage</p>
+              <p className="font-serif text-[9px] text-textDark/80 leading-tight">12:00 PM onwards<br/>Vajra Auditorium</p>
             </div>
           </div>
 
@@ -154,14 +154,15 @@ const MasterInvitation = () => {
           <div className="flex-1 flex flex-col border-t border-b border-gold/40 py-4 text-center items-center justify-start">
             <h2 className="font-serif text-[1.4rem] sm:text-2xl text-textDark italic drop-shadow-sm leading-tight mb-4">Rizwan<br/><span className="text-sm">&</span><br/>Nidha</h2>
             
-            <p className="font-sans text-[9px] uppercase tracking-widest text-sage mb-1">Marriage Function</p>
+            <p className="font-sans text-[9px] uppercase tracking-widest text-sage mb-1">Nikkah & Marriage</p>
             <div className="w-6 h-px bg-gold/50 my-1"></div>
             
-            <div className="space-y-2 mt-2">
-              <p className="font-serif text-[10px] text-textDark/90">May 7, 2026</p>
-              <p className="font-serif text-[10px] text-textDark/90 leading-tight">Starting at<br/>12:00 PM</p>
-              <div className="w-4 h-px bg-sage/30 mx-auto mt-6 mb-1"></div>
-              <p className="font-serif text-[9px] text-textDark/80 leading-tight mt-1">Vajra Auditorium,<br/>Mooriyad Road</p>
+            <div className="space-y-1 mt-2">
+              <p className="font-serif text-[10px] font-bold text-textDark/90">May 6: Nikkah</p>
+              <p className="font-serif text-[9px] text-textDark/80 leading-tight">After Asar<br/>Zareena Manzil</p>
+              <div className="w-4 h-px bg-sage/30 mx-auto my-1"></div>
+              <p className="font-serif text-[10px] font-bold text-textDark/90">May 7: Marriage</p>
+              <p className="font-serif text-[9px] text-textDark/80 leading-tight">12:00 PM onwards<br/>Vajra Auditorium</p>
             </div>
           </div>
         </motion.div>

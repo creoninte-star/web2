@@ -100,11 +100,6 @@ const FooterRSVP = () => {
           <h3 className="font-sans text-[10px] uppercase tracking-widest text-gold mb-1">Destination</h3>
           <h2 className="font-serif text-3xl text-textDark mb-4">Veliya Velicham</h2>
           
-          <div className="flex justify-between items-center text-xs mt-6">
-            <div className="font-sans text-sage uppercase tracking-wider">Pass: VIP</div>
-            <div className="font-sans text-sage uppercase tracking-wider">Gate: 07</div>
-            <div className="font-sans text-sage uppercase tracking-wider">Seat: Open</div>
-          </div>
         </div>
 
         {/* Ticket Bottom - RSVP & Barcode */}

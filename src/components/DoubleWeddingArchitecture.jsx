@@ -160,11 +160,11 @@ const DoubleWeddingArchitecture = () => {
         >
            <OrnateSingleCard 
               couple="Rafeel & Jumana"
-              eventType="Nikkah Ceremony"
-              date="May 6, 2026"
-              time="After Asar (4:00 PM onwards)"
-              highlight="Bride Entry 5:30 - 6:00 PM"
-              venue={<span>Zareena Manzil,<br/>Koothparamb</span>}
+              eventType="Nikkah & Marriage Functions"
+              date="May 6 & 7, 2026"
+              time={<span><span className="font-bold">May 6 (Nikkah):</span> After Asar<br/><span className="font-bold">May 7 (Marriage):</span> 12:00 PM onwards</span>}
+              highlight="May 6 Bride Entry: 5:30 - 6:00 PM"
+              venue={<span><span className="font-bold">Nikkah:</span> Zareena Manzil, Koothparamb<br/><span className="font-bold">Marriage:</span> Vajra Auditorium, Mooriyad Road</span>}
               pathDraw={1}
               photos={couple1Photos}
             />
@@ -180,10 +180,10 @@ const DoubleWeddingArchitecture = () => {
         >
            <OrnateSingleCard 
               couple="Rizwan & Nidha"
-              eventType="Marriage Function"
-              date="May 7, 2026"
-              time="Starting at 12:00 PM"
-              venue={<span>Vajra Auditorium,<br/>Mooriyad Road</span>}
+              eventType="Nikkah & Marriage Functions"
+              date="May 6 & 7, 2026"
+              time={<span><span className="font-bold">May 6 (Nikkah):</span> After Asar<br/><span className="font-bold">May 7 (Marriage):</span> 12:00 PM onwards</span>}
+              venue={<span><span className="font-bold">Nikkah:</span> Zareena Manzil, Koothparamb<br/><span className="font-bold">Marriage:</span> Vajra Auditorium, Mooriyad Road</span>}
               pathDraw={1}
               photos={couple2Photos}
            />
