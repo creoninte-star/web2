@@ -250,14 +250,30 @@ const EventCard = ({ title, dateString, targetDateIso, time, highlight, venue, o
     <motion.section 
       ref={cardRef}
       className="min-h-[85vh] flex flex-col items-center justify-center py-10 px-6 text-center relative z-10 w-full"
-      initial="hidden"
-      whileInView="visible"
+      initial={{ opacity: 0, y: 50, rotateX: 10, perspective: 1000 }}
+      whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
       viewport={{ once: false, margin: "-100px" }}
-      variants={fadeInUp}
+      transition={{ type: "spring", stiffness: 70, damping: 15 }}
     >
-      <div className="border border-gold/30 rounded-t-[160px] rounded-b-xl p-8 bg-paper shadow-2xl embossed w-full max-w-sm relative">
-        <h2 className="font-serif text-3xl sm:text-4xl text-textDark mb-1 italic tracking-tight">{title}</h2>
-        <div className="w-12 h-px bg-gold/40 mx-auto mb-4"></div>
+      <motion.div 
+        className="border border-gold/30 rounded-t-[160px] rounded-b-xl p-8 bg-paper shadow-2xl embossed w-full max-w-sm relative"
+        whileHover={{ scale: 1.01 }}
+        transition={{ type: "spring", stiffness: 300 }}
+      >
+        <motion.h2 
+          className="font-serif text-3xl sm:text-4xl text-textDark mb-1 italic tracking-tight"
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.2, duration: 0.8 }}
+        >
+          {title}
+        </motion.h2>
+        <motion.div 
+          className="w-12 h-px bg-gold/40 mx-auto mb-4"
+          initial={{ width: 0 }}
+          whileInView={{ width: 48 }}
+          transition={{ delay: 0.4, duration: 0.8 }}
+        />
         
         {/* Date Box (Scratchable) */}
         <ScratchCardDate 
@@ -270,37 +286,69 @@ const EventCard = ({ title, dateString, targetDateIso, time, highlight, venue, o
         
         {/* Countdown - Always visible, but zeros until scratched */}
         <div className="flex justify-center gap-4 my-8">
-          {['days', 'hours', 'minutes', 'seconds'].map((interval) => (
-            <div key={interval} className="flex flex-col items-center">
+          {['days', 'hours', 'minutes', 'seconds'].map((interval, i) => (
+            <motion.div 
+              key={interval} 
+              className="flex flex-col items-center"
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 + i * 0.1 }}
+            >
               <motion.span 
                 className="font-serif text-[28px] text-gold mb-1 w-12 text-center"
-                animate={revealed ? { scale: [1.2, 1], color: ['#655743', '#d4af37'] } : {}}
+                animate={revealed ? { 
+                  scale: [1, 1.3, 1], 
+                  color: ['#655743', '#d4af37'],
+                  rotateZ: [0, 5, 0]
+                } : {}}
+                transition={{ duration: 0.6 }}
               >
                 {timeLeft[interval]}
               </motion.span>
               <span className="font-sans text-[8px] uppercase tracking-[0.2em] text-textDark/50">
                 {interval}
               </span>
-            </div>
+            </motion.div>
           ))}
         </div>
 
         {/* Details - Always visible as requested */}
         <div className="space-y-6 mt-4">
-          <div>
+          <motion.div
+             initial={{ opacity: 0 }}
+             whileInView={{ opacity: 1 }}
+             transition={{ delay: 0.8 }}
+          >
             <h3 className="font-sans text-[9px] uppercase tracking-widest text-[#899E8F] mb-1 font-bold">Time</h3>
             <p className="font-serif text-base text-textDark/80">{time}</p>
             {highlight && (
-              <p className="font-serif text-xs italic text-gold mt-1 drop-shadow-sm">{highlight}</p>
+              <motion.p 
+                className="font-serif text-xs italic text-gold mt-1 drop-shadow-sm"
+                animate={{ opacity: [0.7, 1, 0.7] }}
+                transition={{ repeat: Infinity, duration: 2 }}
+              >
+                {highlight}
+              </motion.p>
             )}
-          </div>
-          <div className="w-8 h-px bg-[#899E8F]/30 mx-auto"></div>
-          <div>
+          </motion.div>
+
+          <motion.div 
+            className="w-8 h-px bg-[#899E8F]/30 mx-auto"
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            transition={{ delay: 0.9 }}
+          />
+
+          <motion.div
+             initial={{ opacity: 0 }}
+             whileInView={{ opacity: 1 }}
+             transition={{ delay: 1 }}
+          >
             <h3 className="font-sans text-[9px] uppercase tracking-widest text-[#899E8F] mb-1 font-bold">Venue</h3>
             <p className="font-serif text-base text-textDark/80 leading-relaxed">{venue}</p>
-          </div>
+          </motion.div>
         </div>
-      </div>
+      </motion.div>
     </motion.section>
   );
 };

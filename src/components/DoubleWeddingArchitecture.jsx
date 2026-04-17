@@ -95,6 +95,12 @@ const OrnateSingleCard = ({ couple, eventType, date, time, highlight, venue, par
 );
 
 const DoubleWeddingArchitecture = () => {
+    const containerRef = useRef(null);
+    const { scrollYProgress } = useScroll({
+      target: containerRef,
+      offset: ["start end", "end start"]
+    });
+
     const couple1Photos = [
       "/Rafeel&Jumana photos/WhatsApp%20Image%202026-04-16%20at%209.31.24%20PM%20(1).jpeg",
       "/Rafeel&Jumana photos/WhatsApp%20Image%202026-04-16%20at%209.31.24%20PM.jpeg"
@@ -112,51 +118,68 @@ const DoubleWeddingArchitecture = () => {
     ];
   
     return (
-      <div className="w-full pt-8 pb-16 flex flex-col items-center gap-16 relative overflow-hidden">
+      <div className="w-full pt-12 pb-16 flex flex-col items-center gap-16 relative overflow-visible" ref={containerRef}>
         
-        {/* Decorative Background Elements */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[150vw] h-[150vw] sm:w-[800px] sm:h-[800px] -mt-[400px] rounded-full border border-gold/20 flex items-center justify-center opacity-10 pointer-events-none z-0">
-           <div className="w-[85%] h-[85%] rounded-full border border-gold/10" />
-        </div>
+        {/* Parallax Background Elements */}
+        <MandalaBackdrop scrollYProgress={scrollYProgress} />
   
         {/* --- PAGE 1: THE ENTRY SEQUENCE (CLEAN BOOK) --- */}
         <motion.div 
-          className="relative w-[90%] max-w-2xl h-64 sm:h-80 flex paper-bg shadow-[0_20px_50px_rgba(0,0,0,0.1)] rounded z-10 border border-[#e0d6c8]/50 mb-12"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          className="relative w-[92%] max-w-2xl h-64 sm:h-80 flex paper-bg shadow-[0_30px_60px_rgba(0,0,0,0.12)] rounded-lg z-10 border border-[#e0d6c8]/50 mb-12 overflow-hidden"
+          initial={{ opacity: 0, scale: 0.9, y: 30 }}
+          whileInView={{ opacity: 1, scale: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 1 }}
+          transition={{ type: "spring", stiffness: 100, damping: 20 }}
         >
-          {/* Left Panel */}
-          <div className="flex-1 h-full border-r border-[#d8ccba] border-dashed flex items-center justify-center p-2 relative bg-paper shadow-[inset_-10px_0_15px_-10px_rgba(0,0,0,0.1)]">
-            <h3 className="font-serif text-[clamp(1.2rem,5vw,2rem)] text-textDark italic drop-shadow-sm leading-tight text-center">
-              Rafeel<br/><span className="text-sm not-italic">&</span><br/>Jumana
-            </h3>
-          </div>
+          {/* Enhanced Panes with subtle hover/view tilt */}
+          <motion.div 
+            className="flex-1 h-full border-r border-[#d8ccba] border-dashed flex items-center justify-center p-4 relative bg-paper shadow-[inset_-10px_0_20px_-10px_rgba(0,0,0,0.1)]"
+            whileHover={{ backgroundColor: '#FAF8F5' }}
+          >
+            <motion.h3 
+              className="font-serif text-[clamp(1.2rem,6vw,2.2rem)] text-textDark italic drop-shadow-sm leading-tight text-center"
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3, duration: 1 }}
+            >
+              Rafeel<br/><span className="text-sm not-italic text-gold/80">&</span><br/>Jumana
+            </motion.h3>
+          </motion.div>
           
-          {/* Right Panel */}
-          <div className="flex-1 h-full flex items-center justify-center p-2 relative bg-paper shadow-[inset_10px_0_15px_-10px_rgba(0,0,0,0.05)]">
-            <h3 className="font-serif text-[clamp(1.2rem,5vw,2rem)] text-textDark italic drop-shadow-sm leading-tight text-center">
-              Rizwan<br/><span className="text-sm not-italic">&</span><br/>Nidha
-            </h3>
-          </div>
+          <motion.div 
+            className="flex-1 h-full flex items-center justify-center p-4 relative bg-paper shadow-[inset_10px_0_20px_-10px_rgba(0,0,0,0.05)]"
+            whileHover={{ backgroundColor: '#FAF8F5' }}
+          >
+            <motion.h3 
+              className="font-serif text-[clamp(1.2rem,6vw,2.2rem)] text-textDark italic drop-shadow-sm leading-tight text-center"
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.5, duration: 1 }}
+            >
+              Rizwan<br/><span className="text-sm not-italic text-gold/80">&</span><br/>Nidha
+            </motion.h3>
+          </motion.div>
   
-          <div className="absolute -bottom-12 left-0 right-0 flex justify-center opacity-70">
-             <div className="flex flex-col items-center animate-bounce">
-                <span className="font-sans text-[8px] uppercase tracking-widest text-textDark/80">Scroll to view details</span>
-                <div className="w-px h-6 bg-gold mt-2"></div>
-             </div>
+          <div className="absolute -bottom-14 left-0 right-0 flex justify-center">
+             <motion.div 
+               className="flex flex-col items-center"
+               animate={{ y: [0, 5, 0] }}
+               transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+             >
+                <span className="font-sans text-[8px] uppercase tracking-[0.3em] text-gold font-bold">Scroll to View Details</span>
+                <div className="w-px h-8 bg-gradient-to-b from-gold to-transparent mt-2"></div>
+             </motion.div>
           </div>
         </motion.div>
   
   
         {/* --- PAGE 2: CARD FOR COUPLE 1 --- */}
         <motion.div
-          className="relative w-[90%] max-w-sm min-h-[720px] z-20 pointer-events-auto"
-          initial={{ opacity: 0, y: 100 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="relative w-[92%] max-w-sm min-h-[720px] z-20 pointer-events-auto"
+          initial={{ opacity: 0, y: 150, rotateX: 15 }}
+          whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+          viewport={{ once: false, amount: 0.1 }}
+          transition={{ type: "spring", stiffness: 60, damping: 20 }}
         >
            <OrnateSingleCard 
               couple="Rafeel & Jumana"
@@ -164,8 +187,8 @@ const DoubleWeddingArchitecture = () => {
               date="May 6 & 7, 2026"
               time={<span><span className="font-bold">May 6 (Nikkah):</span> After Asar<br/><span className="font-bold">May 7 (Marriage):</span> 12:00 PM onwards</span>}
               highlight="May 6 Bride Entry: 5:30 - 6:00 PM"
-              venue={<span><span className="font-bold">Nikkah:</span> Zareena Manzil, Koothparamb<br/><span className="font-bold">Marriage:</span> Vajra Auditorium, Mooriyad Road</span>}
-              pathDraw={1}
+              venue={<span><span className="font-bold">Nikkah:</span> Zareena Manzil, Koothparamba<br/><span className="font-bold">Marriage:</span> Vajra Auditorium, Mooriyad Road</span>}
+              pathDraw={useTransform(scrollYProgress, [0.1, 0.4], [0, 1])}
               photos={couple1Photos}
               photoPosition="center 5%"
             />
@@ -173,19 +196,19 @@ const DoubleWeddingArchitecture = () => {
   
         {/* --- PAGE 3: CARD FOR COUPLE 2 --- */}
         <motion.div
-          className="relative w-[90%] max-w-sm min-h-[720px] z-30 pointer-events-auto"
-          initial={{ opacity: 0, y: 100 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="relative w-[92%] max-w-sm min-h-[720px] z-30 pointer-events-auto"
+          initial={{ opacity: 0, y: 150, rotateX: 15 }}
+          whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+          viewport={{ once: false, amount: 0.1 }}
+          transition={{ type: "spring", stiffness: 60, damping: 20, delay: 0.1 }}
         >
            <OrnateSingleCard 
               couple="Rizwan & Nidha"
               eventType="Nikkah & Marriage Functions"
               date="May 6 & 7, 2026"
               time={<span><span className="font-bold">May 6 (Nikkah):</span> After Asar<br/><span className="font-bold">May 7 (Marriage):</span> 12:00 PM onwards</span>}
-              venue={<span><span className="font-bold">Nikkah:</span> Zareena Manzil, Koothparamb<br/><span className="font-bold">Marriage:</span> Vajra Auditorium, Mooriyad Road</span>}
-              pathDraw={1}
+              venue={<span><span className="font-bold">Nikkah:</span> Zareena Manzil, Koothparamba<br/><span className="font-bold">Marriage:</span> Vajra Auditorium, Mooriyad Road</span>}
+              pathDraw={useTransform(scrollYProgress, [0.4, 0.7], [0, 1])}
               photos={couple2Photos}
               photoPosition="center 5%"
            />
