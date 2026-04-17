@@ -58,7 +58,7 @@ function App() {
       <div className="max-w-md w-full mx-auto min-h-screen relative shadow-2xl bg-paper">
         
         {/* Music Control - stays on top after opening */}
-        <MusicPlayer isOpened={isOpened} />
+        {/* <MusicPlayer isOpened={isOpened} /> */}
         
         {/* Envelope Covers everything initially */}
 
