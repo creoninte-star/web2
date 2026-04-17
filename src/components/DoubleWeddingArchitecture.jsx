@@ -81,7 +81,7 @@ const OrnateSingleCard = ({ couple, eventType, date, time, highlight, venue, par
         <p className="font-serif text-xs text-textDark/70 leading-relaxed">{venue}</p>
       </div>
       
-      <div className="w-full max-w-[160px] aspect-square mt-auto mb-4 rounded-t-full border border-gold/40 border-dashed flex items-center justify-center bg-envelope/50 shrink-0 relative overflow-hidden">
+      <div className="w-full max-w-[260px] h-[240px] mt-auto mb-4 rounded-t-[140px] rounded-b-xl border border-gold/40 border-dashed flex items-center justify-center bg-envelope/50 shrink-0 relative overflow-hidden shadow-inner">
          {photos && photos.length > 0 ? (
            <PhotoSlideshow images={photos} />
          ) : (
@@ -152,7 +152,7 @@ const DoubleWeddingArchitecture = () => {
   
         {/* --- PAGE 2: CARD FOR COUPLE 1 --- */}
         <motion.div
-          className="relative w-[90%] max-w-sm h-[70vh] min-h-[600px] z-20 pointer-events-auto"
+          className="relative w-[90%] max-w-sm min-h-[720px] z-20 pointer-events-auto"
           initial={{ opacity: 0, y: 100 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.2 }}
@@ -172,7 +172,7 @@ const DoubleWeddingArchitecture = () => {
   
         {/* --- PAGE 3: CARD FOR COUPLE 2 --- */}
         <motion.div
-          className="relative w-[90%] max-w-sm h-[70vh] min-h-[600px] z-30 pointer-events-auto"
+          className="relative w-[90%] max-w-sm min-h-[720px] z-30 pointer-events-auto"
           initial={{ opacity: 0, y: 100 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.2 }}
