@@ -64,36 +64,43 @@ const ScratchCardDate = ({ dateString, onReveal }) => {
         const xPos = (rect.left + rect.width / 2) / window.innerWidth;
         const yPos = (rect.top + rect.height / 2) / window.innerHeight;
         
-        // MASSIVE CELEBRATION
+        // --- MASSIVE MULTI-STAGE POPPER CELEBRATION ---
+        
+        // Stage 1: Central Explosion
         confetti({
-          particleCount: 350,
-          spread: 120,
+          particleCount: 600,
+          spread: 160,
           origin: { x: xPos, y: yPos },
-          colors: ['#D4AF37', '#FAF6F0', '#655743', '#B68222', '#C5A039'],
+          colors: ['#D4AF37', '#FAF6F0', '#655743', '#B68222', '#C5A039', '#899E8F'],
           disableForReducedMotion: true,
-          gravity: 0.9,
-          startVelocity: 45,
-          scalar: 1.3,
-          ticks: 300
+          gravity: 0.7,
+          startVelocity: 55,
+          scalar: 1.4,
+          ticks: 400
         });
 
-        // Extra side blasts for depth
-        setTimeout(() => {
-          confetti({
-            particleCount: 80,
-            angle: 60,
-            spread: 55,
-            origin: { x: 0, y: yPos },
-            colors: ['#D4AF37', '#FAF6F0'],
-          });
-          confetti({
-            particleCount: 80,
-            angle: 120,
-            spread: 55,
-            origin: { x: 1, y: yPos },
-            colors: ['#D4AF37', '#FAF6F0'],
-          });
-        }, 200);
+        // Stage 2: Staggered Side Blasts
+        const blasts = [
+          { x: 0.2, y: yPos + 0.1, delay: 150, angle: 60 },
+          { x: 0.8, y: yPos + 0.1, delay: 250, angle: 120 },
+          { x: 0.5, y: yPos - 0.2, delay: 400, angle: 90 },
+          { x: xPos, y: yPos, delay: 600, angle: 90, spread: 360 } // Final center starburst
+        ];
+
+        blasts.forEach(blast => {
+          setTimeout(() => {
+            confetti({
+              particleCount: 120,
+              angle: blast.angle || 90,
+              spread: blast.spread || 70,
+              origin: { x: blast.x, y: blast.y },
+              colors: ['#D4AF37', '#FAF6F0', '#B68222'],
+              startVelocity: 30,
+              gravity: 1.1,
+              scalar: 1,
+            });
+          }, blast.delay);
+        });
       }
     }
   }, [revealed]);
@@ -113,23 +120,23 @@ const ScratchCardDate = ({ dateString, onReveal }) => {
 
     ctx.globalCompositeOperation = 'destination-out';
     ctx.beginPath();
-    ctx.arc(x, y, 18, 0, Math.PI * 2);
+    ctx.arc(x, y, 20, 0, Math.PI * 2);
     ctx.fill();
 
     setScratchCount(prev => {
       const next = prev + 1;
       
-      // Intense mini-pops during scratching
+      // Energetic mini-pops during scratching
       if (next % 3 === 0) {
         confetti({
-          particleCount: 10,
-          spread: 60,
+          particleCount: 15,
+          spread: 80,
           origin: { x: clientX / window.innerWidth, y: clientY / window.innerHeight },
           colors: ['#D4AF37', '#B68222', '#FAF6F0'],
           gravity: 2,
-          startVelocity: 20,
-          scalar: 0.7,
-          ticks: 40
+          startVelocity: 25,
+          scalar: 0.8,
+          ticks: 50
         });
       }
 
