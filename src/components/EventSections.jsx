@@ -134,6 +134,16 @@ const ScratchCardDate = ({ dateString, onReveal }) => {
 
 const EventCard = ({ title, dateString, targetDateIso, time, highlight, venue, onReveal }) => {
   const [revealed, setRevealed] = useState(false);
+  const cardRef = useRef(null);
+
+  // Exit Animation Logic (Dim and Scale down as it leaves)
+  const { scrollYProgress: exitProgress } = useScroll({
+    target: cardRef,
+    offset: ["center center", "end start"]
+  });
+
+  const exitScale = useTransform(exitProgress, [0, 1], [1, 0.98]);
+  const exitOpacity = useTransform(exitProgress, [0, 1], [1, 0.7]);
   
   const calculateTimeLeft = () => {
     if (!revealed) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
@@ -168,11 +178,13 @@ const EventCard = ({ title, dateString, targetDateIso, time, highlight, venue, o
 
   return (
     <motion.section 
+      ref={cardRef}
       className="py-8 px-6 text-center bg-envelope relative z-10 embossed mt-4 w-full"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-50px" }}
       variants={fadeInUp}
+      style={{ scale: exitScale, opacity: exitOpacity }}
     >
       <div className="border border-gold/30 rounded-t-full p-8 bg-paper shadow-md">
         <h2 className="font-serif text-3xl sm:text-4xl text-textDark mb-2 italic">{title}</h2>

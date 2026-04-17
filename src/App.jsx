@@ -49,12 +49,22 @@ function App() {
 
   return (
 
-    <div className="relative min-h-screen bg-envelope font-sans flex flex-col justify-center">
+    <div className="relative min-h-screen bg-envelope font-sans flex flex-col justify-center overflow-x-hidden">
       {/* Noise Overlay */}
       <div className="noise-overlay pointer-events-none fixed inset-0 z-50"></div>
 
+      {/* Parallax Background Paper Texture */}
+      <motion.div 
+        className="fixed inset-0 z-0 pointer-events-none opacity-50"
+        style={{
+          backgroundImage: 'url("https://www.transparenttextures.com/patterns/cream-paper.png")',
+          backgroundSize: '400px',
+          y: useTransform(useScroll().scrollY, (v) => v * 0.1)
+        }}
+      />
+
       {/* App Container - Mobile App Feel max width */}
-      <div className="max-w-md w-full mx-auto min-h-screen relative shadow-2xl bg-paper">
+      <div className="max-w-md w-full mx-auto min-h-screen relative shadow-2xl bg-paper overflow-hidden">
         
         {/* Music Control - stays on top after opening */}
         <MusicPlayer isOpened={isOpened} />
