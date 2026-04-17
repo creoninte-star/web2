@@ -44,22 +44,19 @@ const ScratchCardDate = ({ dateString, onReveal }) => {
   useEffect(() => {
     if (revealed) {
       onReveal();
-      
-      // The canvas is still in the DOM (but transparent), so we can get its position
       if (canvasRef.current) {
         const rect = canvasRef.current.getBoundingClientRect();
         const xPos = (rect.left + rect.width / 2) / window.innerWidth;
         const yPos = (rect.top + rect.height / 2) / window.innerHeight;
         
         confetti({
-          particleCount: 60, // Restored intensity
-          spread: 50,
+          particleCount: 30,
+          spread: 45,
           origin: { x: xPos, y: yPos },
           colors: ['#D4AF37', '#eaddce', '#655743'],
           disableForReducedMotion: true,
           ticks: 150,
-          gravity: 1.2,
-          scalar: 0.7 
+          scalar: 0.6
         });
       }
     }
@@ -118,33 +115,25 @@ const ScratchCardDate = ({ dateString, onReveal }) => {
         <p className="font-sans text-[10px] font-bold uppercase tracking-widest text-textDark drop-shadow-sm">{dateString}</p>
       </div>
 
-      <canvas
-        ref={canvasRef}
-        className={`absolute inset-0 w-full h-full rounded shadow-sm touch-none transition-opacity duration-700 ${revealed ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
-        onMouseDown={handleDown}
-        onMouseUp={handleUp}
-        onMouseLeave={handleUp}
-        onMouseMove={handleMove}
-        onTouchStart={handleDown}
-        onTouchEnd={handleUp}
-        onTouchMove={handleMove}
-      />
+      {!revealed && (
+        <canvas
+          ref={canvasRef}
+          className="absolute inset-0 w-full h-full rounded shadow-sm touch-none transition-opacity duration-300"
+          onMouseDown={handleDown}
+          onMouseUp={handleUp}
+          onMouseLeave={handleUp}
+          onMouseMove={handleMove}
+          onTouchStart={handleDown}
+          onTouchEnd={handleUp}
+          onTouchMove={handleMove}
+        />
+      )}
     </motion.div>
   );
 };
 
 const EventCard = ({ title, dateString, targetDateIso, time, highlight, venue, onReveal }) => {
   const [revealed, setRevealed] = useState(false);
-  const cardRef = useRef(null);
-
-  // Exit Animation Logic (Dim and Scale down as it leaves)
-  const { scrollYProgress: exitProgress } = useScroll({
-    target: cardRef,
-    offset: ["center center", "end start"]
-  });
-
-  const exitScale = useTransform(exitProgress, [0, 1], [1, 0.98]);
-  const exitOpacity = useTransform(exitProgress, [0, 1], [1, 0.7]);
   
   const calculateTimeLeft = () => {
     if (!revealed) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
@@ -179,13 +168,11 @@ const EventCard = ({ title, dateString, targetDateIso, time, highlight, venue, o
 
   return (
     <motion.section 
-      ref={cardRef}
       className="py-8 px-6 text-center bg-envelope relative z-10 embossed mt-4 w-full"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-50px" }}
       variants={fadeInUp}
-      style={{ scale: exitScale, opacity: exitOpacity }}
     >
       <div className="border border-gold/30 rounded-t-full p-8 bg-paper shadow-md">
         <h2 className="font-serif text-3xl sm:text-4xl text-textDark mb-2 italic">{title}</h2>

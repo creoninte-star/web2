@@ -35,145 +35,64 @@ const MandalaBackdrop = ({ scrollYProgress }) => {
   );
 };
 
-const SectionWithArchTransition = ({ children }) => {
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "center center"]
-  });
 
-  // Islamic Arch Path expansion simulation via clip-path polygon
-  // Start: Small diamond in center
-  // End: Full Arch shape
-  const clipPath = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [
-      "polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%, 50% 50%, 50% 50%, 50% 50%)",
-      "polygon(50% 0%, 85% 15%, 100% 35%, 100% 100%, 0% 100%, 0% 35%, 15% 15%)"
-    ]
-  );
+const OrnateSingleCard = ({ couple, eventType, date, time, highlight, venue, parentsInfo, pathDraw, photos, photoPosition = "center" }) => (
 
-  return (
-    <motion.div
-      ref={ref}
-      style={{ clipPath }}
-      className="w-full relative py-20"
-    >
-      {children}
-    </motion.div>
-  );
-};
+  <div className="w-full h-full relative p-4 flex flex-col items-center z-10 paper-bg bg-paper shadow-xl rounded-t-[140px] rounded-b-xl border-[3px] border-white/40 overflow-hidden transform-gpu">
+    <div className="absolute inset-0 rounded-t-[136px] rounded-b-lg border border-gold/20 pointer-events-none"></div>
 
+    
+    <svg className="absolute inset-2 w-[calc(100%-16px)] h-[calc(100%-16px)] rounded-t-[120px] rounded-b-md pointer-events-none" preserveAspectRatio="none">
+      <motion.rect 
+        width="100%" height="100%" rx="8" 
+        stroke="rgba(212,175,55,0.4)" strokeWidth="1.5" fill="none"
+        style={{ pathLength: pathDraw }}
+      />
+    </svg>
 
-const OrnateSingleCard = ({ couple, eventType, date, time, highlight, venue, parentsInfo, pathDraw, photos, photoPosition = "center" }) => {
-  const cardRef = useRef(null);
-  
-  // Exit Animation Logic (Dim and Scale down as it leaves)
-  const { scrollYProgress: exitProgress } = useScroll({
-    target: cardRef,
-    offset: ["center center", "end start"]
-  });
+    <div className="mt-8 z-10 w-full flex flex-col items-center shrink-0">
+      <Rings />
+      <div className="mb-2">
+        <span className="font-serif text-4xl text-gold italic drop-shadow-sm">﷽</span>
+      </div>
+    </div>
 
-  const scale = useTransform(exitProgress, [0, 1], [1, 0.98]);
-  const opacity = useTransform(exitProgress, [0, 1], [1, 0.6]);
-  const blur = useTransform(exitProgress, [0.1, 0.9], ["blur(0px)", "blur(1.5px)"]);
-
-  // Staggered Entry Transitions Physics
-  const springConfig = { stiffness: 100, damping: 20 };
-  
-  return (
-    <motion.div 
-      ref={cardRef}
-      style={{ scale, opacity, filter: blur }}
-      className="w-full h-full relative p-4 flex flex-col items-center z-10 paper-bg bg-paper shadow-xl rounded-t-[140px] rounded-b-xl border-[3px] border-white/40 overflow-hidden transform-gpu"
-    >
-      <div className="absolute inset-0 rounded-t-[136px] rounded-b-lg border border-gold/20 pointer-events-none"></div>
-
-      {/* 1. Gold Laser-Cut Patterns "draw" themselves (pathLength) */}
-      <svg className="absolute inset-2 w-[calc(100%-16px)] h-[calc(100%-16px)] rounded-t-[120px] rounded-b-md pointer-events-none" preserveAspectRatio="none">
-        <motion.rect 
-          width="100%" height="100%" rx="8" 
-          stroke="rgba(212,175,55,0.4)" strokeWidth="1.5" fill="none"
-          initial={{ pathLength: 0 }}
-          whileInView={{ pathLength: 1 }}
-          viewport={{ once: false, amount: 0.3 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        />
-      </svg>
-
-      <div className="mt-8 z-10 w-full flex flex-col items-center shrink-0">
-        <Rings />
-        <motion.div 
-          className="mb-2"
-          initial={{ opacity: 0, scale: 0.8 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-        >
-          <span className="font-serif text-4xl text-gold italic drop-shadow-sm">﷽</span>
-        </motion.div>
+    <div className="mt-4 flex flex-col items-center text-center px-4 z-10 w-full h-full flex-grow">
+      <h2 className="font-serif text-3xl sm:text-4xl text-textDark italic drop-shadow-sm leading-tight mb-2">
+        {couple.split('&').map((text, i) => (
+          <React.Fragment key={i}>
+            {text}
+            {i === 0 && <><br/><span className="text-xl not-italic text-gold">&</span><br/></>}
+          </React.Fragment>
+        ))}
+      </h2>
+      
+      <p className="font-sans text-[10px] uppercase tracking-widest text-sage mb-4">{eventType}</p>
+      
+      <div className="space-y-3 mt-2 w-full max-w-[240px]">
+        <p className="font-serif text-base text-textDark/90">{date}</p>
+        <p className="font-serif text-sm text-textDark/80 leading-tight">{time}</p>
+        {highlight && (
+          <div className="py-1 px-4 border border-gold/20 rounded bg-gold/5 max-w-[180px] mx-auto">
+             <p className="font-serif text-[11px] text-gold italic leading-tight">{highlight}</p>
+          </div>
+        )}
+        <div className="w-8 h-px bg-sage/30 mx-auto my-3"></div>
+        <p className="font-serif text-xs text-textDark/70 leading-relaxed">{venue}</p>
+      </div>
+      
+      <div className="w-full max-w-[260px] h-[240px] mt-auto mb-4 rounded-t-[140px] rounded-b-xl border border-gold/40 border-dashed flex items-center justify-center bg-envelope/50 shrink-0 relative overflow-hidden shadow-inner">
+         {photos && photos.length > 0 ? (
+           <PhotoSlideshow images={photos} objectPosition={photoPosition} />
+         ) : (
+           <span className="text-[9px] text-gold/70 uppercase tracking-widest">Image Placeholder</span>
+         )}
       </div>
 
-      <div className="mt-4 flex flex-col items-center text-center px-4 z-10 w-full h-full flex-grow">
-        {/* 2. Text Slide Up with "Spring" Physics */}
-        <motion.h2 
-          className="font-serif text-3xl sm:text-4xl text-textDark italic drop-shadow-sm leading-tight mb-2"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ ...springConfig, delay: 0.3 }}
-        >
-          {couple.split('&').map((text, i) => (
-            <React.Fragment key={i}>
-              {text}
-              {i === 0 && <><br/><span className="text-xl not-italic text-gold">&</span><br/></>}
-            </React.Fragment>
-          ))}
-        </motion.h2>
-        
-        <motion.p 
-          className="font-sans text-[10px] uppercase tracking-widest text-sage mb-4"
-          initial={{ opacity: 0, filter: "blur(4px)" }}
-          whileInView={{ opacity: 1, filter: "blur(0px)" }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-        >
-          {eventType}
-        </motion.p>
-        
-        <motion.div 
-          className="space-y-3 mt-2 w-full max-w-[240px]"
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ ...springConfig, delay: 0.5 }}
-        >
-          <p className="font-serif text-base text-textDark/90">{date}</p>
-          <p className="font-serif text-sm text-textDark/80 leading-tight">{time}</p>
-          {highlight && (
-            <div className="py-1 px-4 border border-gold/20 rounded bg-gold/5 max-w-[180px] mx-auto">
-               <p className="font-serif text-[11px] text-gold italic leading-tight">{highlight}</p>
-            </div>
-          )}
-          <div className="w-8 h-px bg-sage/30 mx-auto my-3"></div>
-          <p className="font-serif text-xs text-textDark/70 leading-relaxed">{venue}</p>
-        </motion.div>
-        
-        {/* 3. Seated Couple Illustration Fade and Scale Up */}
-        <motion.div 
-          className="w-full max-w-[260px] h-[240px] mt-auto mb-4 rounded-t-[140px] rounded-b-xl border border-gold/40 border-dashed flex items-center justify-center bg-envelope/50 shrink-0 relative overflow-hidden shadow-inner"
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: false, amount: 0.2 }}
-          transition={{ duration: 1, ease: "easeOut", delay: 0.7 }}
-        >
-           {photos && photos.length > 0 ? (
-             <PhotoSlideshow images={photos} objectPosition={photoPosition} />
-           ) : (
-             <span className="text-[9px] text-gold/70 uppercase tracking-widest">Image Placeholder</span>
-           )}
-        </motion.div>
-      </div>
-    </motion.div>
-  );
-};
+
+    </div>
+  </div>
+);
 
 const DoubleWeddingArchitecture = () => {
     const couple1Photos = [
@@ -193,7 +112,7 @@ const DoubleWeddingArchitecture = () => {
     ];
   
     return (
-      <div className="w-full pt-8 pb-16 flex flex-col items-center gap-16 relative">
+      <div className="w-full pt-8 pb-16 flex flex-col items-center gap-16 relative overflow-hidden">
         
         {/* Decorative Background Elements */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[150vw] h-[150vw] sm:w-[800px] sm:h-[800px] -mt-[400px] rounded-full border border-gold/20 flex items-center justify-center opacity-10 pointer-events-none z-0">
@@ -231,38 +150,46 @@ const DoubleWeddingArchitecture = () => {
         </motion.div>
   
   
-        {/* --- PAGE 2: CARD FOR COUPLE 1 (Archway Reveal) --- */}
-        <SectionWithArchTransition>
-          <div className="relative w-[90%] max-w-sm min-h-[720px] pointer-events-auto mx-auto">
-             <OrnateSingleCard 
-                couple="Rafeel & Jumana"
-                eventType="Nikkah & Marriage Functions"
-                date="May 6 & 7, 2026"
-                time={<span><span className="font-bold">May 6 (Nikkah):</span> After Asar<br/><span className="font-bold">May 7 (Marriage):</span> 12:00 PM onwards</span>}
-                highlight="May 6 Bride Entry: 5:30 - 6:00 PM"
-                venue={<span><span className="font-bold">Nikkah:</span> Zareena Manzil, Koothparamb<br/><span className="font-bold">Marriage:</span> Vajra Auditorium, Mooriyad Road</span>}
-                pathDraw={1}
-                photos={couple1Photos}
-                photoPosition="center 5%"
-              />
-          </div>
-        </SectionWithArchTransition>
+        {/* --- PAGE 2: CARD FOR COUPLE 1 --- */}
+        <motion.div
+          className="relative w-[90%] max-w-sm min-h-[720px] z-20 pointer-events-auto"
+          initial={{ opacity: 0, y: 100 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+           <OrnateSingleCard 
+              couple="Rafeel & Jumana"
+              eventType="Nikkah & Marriage Functions"
+              date="May 6 & 7, 2026"
+              time={<span><span className="font-bold">May 6 (Nikkah):</span> After Asar<br/><span className="font-bold">May 7 (Marriage):</span> 12:00 PM onwards</span>}
+              highlight="May 6 Bride Entry: 5:30 - 6:00 PM"
+              venue={<span><span className="font-bold">Nikkah:</span> Zareena Manzil, Koothparamb<br/><span className="font-bold">Marriage:</span> Vajra Auditorium, Mooriyad Road</span>}
+              pathDraw={1}
+              photos={couple1Photos}
+              photoPosition="center 5%"
+            />
+        </motion.div>
   
-        {/* --- PAGE 3: CARD FOR COUPLE 2 (Archway Reveal) --- */}
-        <SectionWithArchTransition>
-          <div className="relative w-[90%] max-w-sm min-h-[720px] pointer-events-auto mx-auto">
-             <OrnateSingleCard 
-                couple="Rizwan & Nidha"
-                eventType="Nikkah & Marriage Functions"
-                date="May 6 & 7, 2026"
-                time={<span><span className="font-bold">May 6 (Nikkah):</span> After Asar<br/><span className="font-bold">May 7 (Marriage):</span> 12:00 PM onwards</span>}
-                venue={<span><span className="font-bold">Nikkah:</span> Zareena Manzil, Koothparamb<br/><span className="font-bold">Marriage:</span> Vajra Auditorium, Mooriyad Road</span>}
-                pathDraw={1}
-                photos={couple2Photos}
-                photoPosition="center 5%"
-             />
-          </div>
-        </SectionWithArchTransition>
+        {/* --- PAGE 3: CARD FOR COUPLE 2 --- */}
+        <motion.div
+          className="relative w-[90%] max-w-sm min-h-[720px] z-30 pointer-events-auto"
+          initial={{ opacity: 0, y: 100 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+           <OrnateSingleCard 
+              couple="Rizwan & Nidha"
+              eventType="Nikkah & Marriage Functions"
+              date="May 6 & 7, 2026"
+              time={<span><span className="font-bold">May 6 (Nikkah):</span> After Asar<br/><span className="font-bold">May 7 (Marriage):</span> 12:00 PM onwards</span>}
+              venue={<span><span className="font-bold">Nikkah:</span> Zareena Manzil, Koothparamb<br/><span className="font-bold">Marriage:</span> Vajra Auditorium, Mooriyad Road</span>}
+              pathDraw={1}
+              photos={couple2Photos}
+              photoPosition="center 5%"
+           />
+        </motion.div>
   
       </div>
     );
