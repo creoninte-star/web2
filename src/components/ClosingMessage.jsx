@@ -48,7 +48,7 @@ const ClosingMessage = () => {
           With Love & Duas
         </h3>
         <p className="font-sans text-[8px] sm:text-[9px] uppercase tracking-[0.4em] text-sage font-bold mt-4">
-          The Families
+          Siblings & The Families
         </p>
         <p className="font-sans text-[9px] sm:text-[10px] uppercase tracking-[0.2em] text-textDark/60 mt-3 font-medium">
           Raizy, Rafsi, Rasna & Families
