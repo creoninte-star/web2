@@ -10,29 +10,32 @@ const fadeInUp = {
 
 const DigitCounter = ({ value, revealed }) => {
   const [displayValue, setDisplayValue] = useState(0);
+  const hasAnimated = useRef(false);
 
   useEffect(() => {
-    if (revealed) {
+    if (revealed && !hasAnimated.current) {
       const targetValue = parseInt(value) || 0;
       const controls = animate(0, targetValue, {
         duration: 1.2,
         ease: "easeOut",
         onUpdate: (latest) => setDisplayValue(Math.floor(latest))
       });
+      hasAnimated.current = true;
       return () => controls.stop();
+    } else if (revealed) {
+      setDisplayValue(parseInt(value) || 0);
     } else {
       setDisplayValue(0);
+      hasAnimated.current = false;
     }
   }, [revealed, value]);
 
   return (
     <motion.span 
-      className="font-serif text-[28px] text-gold mb-1 w-12 text-center"
+      className="font-serif text-[28px] text-gold mb-1 w-12 text-center inline-block"
       animate={revealed ? { 
-        scale: [1, 1.2, 1], 
         color: ['#655743', '#d4af37'],
       } : {}}
-      transition={{ duration: 0.6 }}
     >
       {String(displayValue).padStart(2, '0')}
     </motion.span>
@@ -394,11 +397,12 @@ const CountdownDisplay = ({ targetDateIso, revealed }) => {
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
   useEffect(() => {
+    if (!revealed) return;
     const timer = setInterval(() => {
       setTimeLeft(calculateTimeLeft());
     }, 1000);
     return () => clearInterval(timer);
-  }, [targetDateIso]);
+  }, [targetDateIso, revealed]);
 
   return (
     <div className="flex justify-center gap-3 my-4">
@@ -417,11 +421,40 @@ const CountdownDisplay = ({ targetDateIso, revealed }) => {
 const EventSections = ({ onAllRevealed }) => {
   const [revealed, setRevealed] = useState(false);
   const containerRef = useRef(null);
+  const cardRef = useRef(null);
+  const [hasScrolledPast, setHasScrolledPast] = useState(false);
 
-  const handleReveal = () => {
-    setRevealed(true);
-    if (onAllRevealed) onAllRevealed();
-  };
+  useEffect(() => {
+    if (revealed) {
+      if (onAllRevealed) onAllRevealed();
+      // Scroll to center on reveal
+      setTimeout(() => {
+        cardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 500);
+    }
+  }, [revealed, onAllRevealed]);
+
+  // Pull-back logic
+  useEffect(() => {
+    if (revealed) return;
+    const handleScroll = () => {
+      if (!cardRef.current) return;
+      const rect = cardRef.current.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      
+      if (rect.bottom < viewportHeight * 0.4 && !hasScrolledPast) {
+        setHasScrolledPast(true);
+        setTimeout(() => {
+          cardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          setHasScrolledPast(false); 
+        }, 1500);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [revealed, hasScrolledPast]);
+
+  const handleReveal = () => setRevealed(true);
 
   const commonLocation = "https://maps.app.goo.gl/NvpiSgrVxRf71aom8?g_st=aw";
   const commonVenue = "Zareena Manzil, Koothuparamba";
@@ -429,10 +462,12 @@ const EventSections = ({ onAllRevealed }) => {
   return (
     <div className="pb-16 flex flex-col items-center" ref={containerRef}>
       <motion.section 
+        ref={cardRef}
         className="min-h-[85vh] flex flex-col items-center justify-center py-10 px-6 text-center relative z-10 w-full"
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, scale: 0.9 }}
+        whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: false, margin: "-100px" }}
+        transition={{ type: "spring", stiffness: 50 }}
       >
         <div className="border border-gold/30 rounded-t-[160px] rounded-b-xl p-8 bg-paper shadow-2xl embossed w-full max-w-sm relative">
           <h2 className="font-serif text-3xl text-textDark mb-1 italic">Wedding Ceremonies</h2>
@@ -444,7 +479,6 @@ const EventSections = ({ onAllRevealed }) => {
           />
           
           <div className="space-y-6 mt-8 text-center overflow-hidden">
-            {/* Nikkah Info */}
             <div className={`transition-all duration-1000 ${revealed ? 'opacity-100 scale-100' : 'opacity-20 scale-95 blur-sm'}`}>
               <h3 className="font-sans text-[9px] uppercase tracking-widest text-[#899E8F] mb-1 font-bold">Nikkah Ceremony</h3>
               <p className="font-serif text-lg text-textDark font-bold">Wednesday, May 6</p>
@@ -455,7 +489,6 @@ const EventSections = ({ onAllRevealed }) => {
 
             <div className="w-16 h-px bg-gold/20 mx-auto my-4"></div>
 
-            {/* Marriage Info */}
             <div className={`transition-all duration-1000 ${revealed ? 'opacity-100 scale-100' : 'opacity-20 scale-95 blur-sm'}`}>
               <h3 className="font-sans text-[9px] uppercase tracking-widest text-[#899E8F] mb-1 font-bold">Marriage Function</h3>
               <p className="font-serif text-lg text-textDark font-bold">Thursday, May 7</p>
