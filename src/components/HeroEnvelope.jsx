@@ -128,7 +128,7 @@ const HeroEnvelope = ({ onOpen }) => {
               <motion.img 
                 src="/tom.png"
                 alt="Tom"
-                className="absolute -bottom-12 -left-4 w-20 sm:w-28 z-50 pointer-events-none mix-blend-multiply"
+                className="absolute -bottom-12 -left-4 w-20 sm:w-28 z-50 pointer-events-none drop-shadow-md"
                 initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
                 animate={{ 
                   opacity: 1, 
