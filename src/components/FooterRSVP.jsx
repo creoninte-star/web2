@@ -29,6 +29,11 @@ const FooterRSVP = () => {
     }, 1000);
   };
 
+  const handleNoResponse = () => {
+    setResponse('no');
+    setIsSuccess(true);
+  };
+
   return (
     <motion.section 
       className="py-16 px-4"
@@ -59,9 +64,9 @@ const FooterRSVP = () => {
              >
                {response === 'yes' ? (
                  <>
-                   <h3 className="font-serif text-2xl text-gold mb-2">Thank You!</h3>
-                   <p className="font-sans text-sm text-sage leading-relaxed">
-                     We're thrilled you can make it!<br/>See you there, In Sha Allah.
+                   <h3 className="font-serif text-2xl text-gold mb-4">Thank You!</h3>
+                   <p className="font-sans text-xs text-sage leading-relaxed px-4">
+                     Thank you for confirming! You are now officially entered into our Wedding Day Lucky Draw. The winner will be announced live during the event. We can't wait to celebrate with you, In Sha Allah!
                    </p>
                  </>
                ) : (
@@ -88,7 +93,7 @@ const FooterRSVP = () => {
               </button>
 
               <button 
-                onClick={() => setResponse('no')}
+                onClick={handleNoResponse}
                 className="w-full flex items-center justify-between p-4 rounded-xl border border-red-200 bg-white shadow-sm hover:shadow-md hover:bg-red-50/30 transition-all group"
               >
                 <div className="flex items-center gap-4">
@@ -99,17 +104,6 @@ const FooterRSVP = () => {
                 </div>
               </button>
             </div>
-          ) : response === 'no' ? (
-             <div className="text-center py-6">
-                <p className="font-serif text-lg text-textDark mb-6 italic px-4">We're sorry you can't join us! Click below to send your response.</p>
-                <button 
-                  onClick={() => setIsSuccess(true)}
-                  className="w-full py-4 bg-red-500 text-white font-sans text-xs uppercase tracking-widest rounded-lg shadow-md hover:bg-red-600 transition-all font-bold"
-                >
-                  Send Response
-                </button>
-                <button onClick={() => setResponse(null)} className="mt-4 text-[10px] text-sage underline uppercase tracking-widest">Go Back</button>
-             </div>
           ) : (
             <form className="space-y-4" onSubmit={handleSubmit}>
               <div className="text-center mb-4">

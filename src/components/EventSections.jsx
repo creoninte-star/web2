@@ -434,7 +434,7 @@ const EventSections = ({ onAllRevealed }) => {
     }
   }, [revealed, onAllRevealed]);
 
-  // Pull-back logic
+  // Pull-back logic - smoother and more 'intense' snap
   useEffect(() => {
     if (revealed) return;
     const handleScroll = () => {
@@ -442,15 +442,22 @@ const EventSections = ({ onAllRevealed }) => {
       const rect = cardRef.current.getBoundingClientRect();
       const viewportHeight = window.innerHeight;
       
-      if (rect.bottom < viewportHeight * 0.4 && !hasScrolledPast) {
+      // If the card is being scrolled away too fast while unscratched
+      if (rect.bottom < viewportHeight * 0.3 && !hasScrolledPast) {
         setHasScrolledPast(true);
+        // Faster, smoother snap back to center
         setTimeout(() => {
-          cardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          if (!revealed) {
+            window.scrollTo({
+              top: cardRef.current.offsetTop - (viewportHeight / 2) + (rect.height / 2),
+              behavior: 'smooth'
+            });
+          }
           setHasScrolledPast(false); 
-        }, 1500);
+        }, 600);
       }
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, [revealed, hasScrolledPast]);
 
