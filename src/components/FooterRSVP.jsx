@@ -10,7 +10,8 @@ const FooterRSVP = () => {
   const [formData, setFormData] = React.useState({
     name: '',
     email: '',
-    guestCount: '1'
+    guestCount: '1',
+    luckyDrawEntry: true
   });
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [isSuccess, setIsSuccess] = React.useState(false);
@@ -23,10 +24,44 @@ const FooterRSVP = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    
+    // Simulate API call
     setTimeout(() => {
       setIsSuccess(true);
       setIsSubmitting(false);
-    }, 1000);
+      
+      // Super Cool Winning Animation - Gold Confetti Burst
+      const duration = 3 * 1000;
+      const end = Date.now() + duration;
+
+      (function frame() {
+        confetti({
+          particleCount: 2,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 },
+          colors: ['#D4AF37', '#FAF6F0', '#B68222']
+        });
+        confetti({
+          particleCount: 2,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 },
+          colors: ['#D4AF37', '#FAF6F0', '#B68222']
+        });
+
+        if (Date.now() < end) {
+          requestAnimationFrame(frame);
+        }
+      }());
+
+      confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#D4AF37', '#F1E1A6', '#B68222']
+      });
+    }, 1500);
   };
 
   const handleNoResponse = () => {
@@ -49,7 +84,7 @@ const FooterRSVP = () => {
         <div className="absolute top-1/2 -mr-3 right-0 w-6 h-6 bg-[#F6EAEB] rounded-full -translate-y-1/2 border-l border-sage/20 z-10"></div>
 
         {/* Ticket Top - RSVP */}
-        <div className="p-8 border-b-2 border-dashed border-sage/30 relative text-center">
+        <div className="p-8 border-b-2 border-dashed border-gold/30 relative text-center">
           <h2 className="font-serif text-3xl text-textDark mb-2 capitalize">Will you attend?</h2>
           <div className="w-12 h-px bg-gold/30 mx-auto"></div>
         </div>
@@ -63,12 +98,20 @@ const FooterRSVP = () => {
                className="text-center py-6"
              >
                {response === 'yes' ? (
-                 <>
-                   <h3 className="font-serif text-2xl text-gold mb-4">Thank You!</h3>
-                   <p className="font-sans text-xs text-sage leading-relaxed px-4">
-                     Thank you for confirming! You are now officially entered into our Wedding Day Lucky Draw. The winner will be announced live during the event. We can't wait to celebrate with you, InshaAllah!
-                   </p>
-                 </>
+                 <div className="relative p-6 border-2 border-gold/40 rounded-xl bg-white shadow-inner overflow-hidden">
+                    {/* Shimmer Effect for Ticket */}
+                    <motion.div 
+                      className="absolute inset-0 bg-gradient-to-r from-transparent via-gold/5 to-transparent -translate-x-full"
+                      animate={{ translateX: ['100%', '-100%'] }}
+                      transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
+                    />
+                    <h3 className="font-serif text-2xl text-gold mb-2 drop-shadow-sm">You’re In! 🎉</h3>
+                    <div className="w-8 h-px bg-gold/30 mx-auto mb-4"></div>
+                    <p className="font-sans text-[11px] text-sage leading-relaxed px-2 font-medium">
+                      Thank you for confirming. You are now officially entered to win our <span className="text-gold font-bold">₹10,000 Cash Prize</span>. The winner will be announced live on <span className="text-textDark font-bold underline decoration-gold/30">May 7th at 11:00 PM</span> during the event. Good luck!
+                    </p>
+                    <div className="mt-6 font-serif text-[10px] text-gold/60 tracking-[0.3em] uppercase">Lucky Ticket #786</div>
+                 </div>
                ) : (
                  <>
                    <h3 className="font-serif text-2xl text-red-400 mb-2">Thank You!</h3>
@@ -100,14 +143,15 @@ const FooterRSVP = () => {
                   <div className="w-10 h-10 rounded-full bg-red-50 border border-red-200 flex items-center justify-center text-red-500">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                   </div>
-                  <span className="font-serif text-lg text-textDark/60 font-medium italic">Unfortunately, I can't make it</span>
+                  <span className="font-serif text-lg text-textDark/60 font-medium italic leading-none text-left">Unfortunately, <br/>I can't make it</span>
                 </div>
               </button>
             </div>
           ) : (
             <form className="space-y-4" onSubmit={handleSubmit}>
-              <div className="text-center mb-4">
-                <p className="font-serif text-sm italic text-sage capitalize">Please provide your details</p>
+              <div className="text-center mb-6">
+                <h3 className="font-serif text-xl text-gold italic leading-tight mb-1">Join our Wedding Day Lucky Draw!</h3>
+                <p className="font-sans text-[9px] uppercase tracking-widest text-sage font-bold">Fill in your details below</p>
               </div>
               <div className="space-y-4">
                 <input 
@@ -117,7 +161,7 @@ const FooterRSVP = () => {
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="Full Name" 
-                  className="w-full bg-transparent border-b border-sage/40 py-2 font-sans text-sm focus:outline-none focus:border-gold placeholder:text-sage/40 text-textDark"
+                  className="w-full bg-transparent border-b border-gold/30 py-2 font-sans text-sm focus:outline-none focus:border-gold placeholder:text-sage/40 text-textDark"
                 />
                 <input 
                   type="email" 
@@ -126,7 +170,7 @@ const FooterRSVP = () => {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="Email Address" 
-                  className="w-full bg-transparent border-b border-sage/40 py-2 font-sans text-sm focus:outline-none focus:border-gold placeholder:text-sage/40 text-textDark"
+                  className="w-full bg-transparent border-b border-gold/30 py-2 font-sans text-sm focus:outline-none focus:border-gold placeholder:text-sage/40 text-textDark"
                 />
                 <input 
                   type="number" 
@@ -136,17 +180,23 @@ const FooterRSVP = () => {
                   onChange={handleChange}
                   placeholder="Number of Guests" 
                   min="1"
-                  className="w-full bg-transparent border-b border-sage/40 py-2 font-sans text-sm focus:outline-none focus:border-gold placeholder:text-sage/40 text-textDark"
+                  className="w-full bg-transparent border-b border-gold/30 py-2 font-sans text-sm focus:outline-none focus:border-gold placeholder:text-sage/40 text-textDark"
                 />
               </div>
               <button 
                 type="submit"
                 disabled={isSubmitting}
-                className={`w-full mt-6 py-4 bg-textDark text-paper font-sans text-xs uppercase tracking-[0.2em] rounded-lg shadow-md transition-all font-bold ${isSubmitting ? 'opacity-70' : 'hover:bg-gold'}`}
+                className={`w-full mt-6 py-4 bg-gradient-to-r from-[#B8860B] via-[#FFD700] to-[#DAA520] text-textDark font-sans text-[11px] uppercase tracking-[0.2em] rounded-lg shadow-xl outline outline-1 outline-gold/50 transition-all font-bold relative overflow-hidden group ${isSubmitting ? 'opacity-70' : 'hover:scale-[1.02]'}`}
               >
-                {isSubmitting ? 'Confirming...' : 'ENTER LUCKY DRAW'}
+                <span className="relative z-10">{isSubmitting ? 'ENTRY PROCESSING...' : 'ENTER ₹10K LUCKY DRAW'}</span>
+                <motion.div 
+                  className="absolute inset-0 bg-white/20 origin-left"
+                  initial={{ scaleX: 0 }}
+                  whileHover={{ scaleX: 1 }}
+                  transition={{ duration: 0.3 }}
+                />
               </button>
-              <button type="button" onClick={() => setResponse(null)} className="w-full mt-4 text-[10px] text-sage underline uppercase tracking-widest text-center">Change Response</button>
+              <button type="button" onClick={() => setResponse(null)} className="w-full mt-4 text-[10px] text-sage underline uppercase tracking-widest text-center">Back to Options</button>
             </form>
           )}
         </div>
