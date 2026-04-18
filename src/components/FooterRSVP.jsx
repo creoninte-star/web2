@@ -66,7 +66,7 @@ const FooterRSVP = () => {
                  <>
                    <h3 className="font-serif text-2xl text-gold mb-4">Thank You!</h3>
                    <p className="font-sans text-xs text-sage leading-relaxed px-4">
-                     Thank you for confirming! You are now officially entered into our Wedding Day Lucky Draw. The winner will be announced live during the event. We can't wait to celebrate with you, In Sha Allah!
+                     Thank you for confirming! You are now officially entered into our Wedding Day Lucky Draw. The winner will be announced live during the event. We can't wait to celebrate with you, InshaAllah!
                    </p>
                  </>
                ) : (
@@ -88,7 +88,7 @@ const FooterRSVP = () => {
                   <div className="w-10 h-10 rounded-full bg-green-50 border border-green-200 flex items-center justify-center text-green-600">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                   </div>
-                  <span className="font-serif text-lg text-textDark font-bold">Yes, In Sha Allah! 😍</span>
+                  <span className="font-serif text-lg text-textDark font-bold">Yes, InshaAllah! 😍</span>
                 </div>
               </button>
 

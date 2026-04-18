@@ -43,7 +43,7 @@ const RSVPButtonsShorthand = () => (
          <div className="w-6 h-6 rounded-full bg-green-50 border border-green-200 flex items-center justify-center text-green-600">
            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
          </div>
-         <span className="font-serif text-[11px] text-textDark font-bold">Yes, In Sha Allah! 😍</span>
+         <span className="font-serif text-[11px] text-textDark font-bold">Yes, InshaAllah! 😍</span>
       </button>
       <button className="flex-1 flex items-center justify-center gap-2 py-3 px-2 rounded-lg border border-sage/20 bg-white/50 backdrop-blur-sm shadow-sm hover:bg-red-50 transition-all group">
          <div className="w-6 h-6 rounded-full bg-red-50 border border-red-200 flex items-center justify-center text-red-400">
@@ -68,59 +68,80 @@ const OrnateSingleCard = ({ pathDraw }) => (
       />
     </svg>
 
-    <div className="mt-8 z-20 w-full flex flex-col items-center">
-      <p className="font-sans text-[10px] uppercase tracking-[0.3em] text-sage mb-4 font-bold">Together with their families</p>
+    <div className="mt-8 z-20 w-full flex flex-col items-center px-4 text-center">
+      {/* Centered Bismillah Text/Calligraphy Styling */}
+      <motion.div 
+        className="mb-8"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 1.5 }}
+      >
+        <p className="font-serif text-[20px] sm:text-[22px] font-bold tracking-[0.1em] text-[#9A6D1C] italic leading-tight">
+          In the Name of Allah,<br /> the Most Gracious, the Most Merciful
+        </p>
+        <div className="w-16 h-px bg-gold/30 mx-auto mt-2"></div>
+      </motion.div>
+
+      <p className="font-sans text-[10px] uppercase tracking-[0.3em] text-sage mb-6 font-bold">Together with their families</p>
       
-      <div className="flex items-center justify-center gap-4 w-full px-2 mb-6">
+      {/* Parents Section - Prominent Hierarchy */}
+      <div className="space-y-6 mb-10 w-full">
+         <div className="flex flex-col items-center">
+            <h3 className="font-serif text-lg text-textDark leading-tight">Mr. & Mrs. Rafeek & Sareena</h3>
+            <p className="font-sans text-[8px] uppercase tracking-widest text-gold font-bold">(Grooms' Parents)</p>
+         </div>
+
+         <div className="flex flex-col items-center">
+            <h3 className="font-serif text-lg text-textDark leading-tight">Mr. & Mrs. Sulaiman & Minsiya</h3>
+            <p className="font-sans text-[8px] uppercase tracking-widest text-gold font-bold">(Nidha's Parents)</p>
+         </div>
+
+         <div className="flex flex-col items-center">
+            <h3 className="font-serif text-lg text-textDark leading-tight">
+               Mr. & Mrs. <span className="italic">Late</span> Rasak & Najma
+            </h3>
+            <p className="font-sans text-[8px] uppercase tracking-widest text-gold font-bold">(Jumana's Parents)</p>
+         </div>
+      </div>
+
+      <div className="w-full h-px bg-gold/10 mb-8 max-w-[200px]"></div>
+
+      {/* Main Couple Names */}
+      <div className="flex items-center justify-center gap-4 w-full px-2 mb-10">
         <div className="flex-1 text-center">
-          <h2 className="font-serif text-2xl sm:text-3xl text-textDark italic leading-tight">
+          <h2 className="font-serif text-2xl sm:text-4xl text-textDark italic leading-tight drop-shadow-sm">
             Rafeel
           </h2>
-          <span className="text-gold font-serif italic text-lg">&</span>
-          <h2 className="font-serif text-2xl sm:text-3xl text-textDark italic leading-tight">
+          <span className="text-gold font-serif italic text-lg leading-none">&</span>
+          <h2 className="font-serif text-2xl sm:text-4xl text-textDark italic leading-tight drop-shadow-sm">
             Jumana
           </h2>
         </div>
         
         <div className="shrink-0 flex items-center justify-center">
-          <div className="text-gold text-xl drop-shadow-sm">♥</div>
+          <div className="text-gold text-2xl drop-shadow-sm opacity-60">♥</div>
         </div>
 
         <div className="flex-1 text-center">
-          <h2 className="font-serif text-2xl sm:text-3xl text-textDark italic leading-tight">
+          <h2 className="font-serif text-2xl sm:text-4xl text-textDark italic leading-tight drop-shadow-sm">
             Rizwan
           </h2>
-          <span className="text-gold font-serif italic text-lg">&</span>
-          <h2 className="font-serif text-2xl sm:text-3xl text-textDark italic leading-tight">
+          <span className="text-gold font-serif italic text-lg leading-none">&</span>
+          <h2 className="font-serif text-2xl sm:text-4xl text-textDark italic leading-tight drop-shadow-sm">
             Nidha
           </h2>
         </div>
       </div>
 
-      <p className="font-sans text-[10px] uppercase tracking-[0.25em] text-sage mb-6 font-bold">Request the honor of your presence</p>
-
-      {/* Date Box Layout Style */}
-      <div className="w-full max-w-[300px] flex items-center justify-center gap-px border border-gold/30 rounded-lg overflow-hidden bg-white/40 backdrop-blur-sm mb-4">
-        <div className="flex-1 py-3 px-2 flex flex-col items-center justify-center border-r border-gold/20">
-          <p className="font-sans text-[9px] uppercase tracking-widest text-sage font-bold">MAY</p>
-          <p className="font-serif text-[11px] text-textDark font-bold">2026, Wed</p>
-        </div>
-        <div className="flex-1 py-2 px-2 flex flex-col items-center justify-center bg-gold/5">
-          <p className="font-serif text-4xl text-gold font-bold leading-none">06</p>
-        </div>
-        <div className="flex-1 py-3 px-2 flex flex-col items-center justify-center border-l border-gold/20">
-          <p className="font-sans text-[14px] text-textDark font-bold">04 PM</p>
-        </div>
-      </div>
-
-      <p className="font-serif text-[13px] text-sage italic mb-6 tracking-wide underline underline-offset-4 decoration-gold/30">Dhuʻl-Qiʻdah 19, 1447</p>
-
-      <div className="space-y-1 mb-8">
-        <h3 className="font-serif text-xl tracking-[0.1em] text-textDark uppercase font-bold">Zareena Manzil</h3>
-        <p className="font-serif text-sm text-sage italic">Koothuparamba</p>
-      </div>
-
-      <div className="w-12 h-px bg-gold/30 mx-auto"></div>
+      <motion.p 
+        className="font-sans text-[10px] uppercase tracking-[0.25em] text-sage font-bold px-6 leading-relaxed"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ delay: 0.5 }}
+      >
+        Request the honor of your presence <br/> to share in our joy
+      </motion.p>
+      
     </div>
   </div>
 );
