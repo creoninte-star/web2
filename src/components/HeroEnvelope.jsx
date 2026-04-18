@@ -85,35 +85,17 @@ const HeroEnvelope = ({ onOpen }) => {
         <AnimatePresence>
           {!isOpen && (
             <>
-              {/* Mickey Mouse - Top Left */}
-              <motion.img 
-                src="/mickey%20mouse.png"
-                alt="Mickey"
-                className="absolute -top-12 -left-4 w-24 sm:w-36 z-50 pointer-events-none drop-shadow-xl"
-                initial={{ opacity: 0, scale: 0.8, rotate: 10 }}
-                animate={{ 
-                  opacity: 1, 
-                  scale: 1, 
-                  rotate: 20,
-                  y: [0, -15, 0]
-                }}
-                exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.2 } }}
-                transition={{ 
-                   y: { repeat: Infinity, duration: 1.5, ease: "easeInOut", delay: 0 },
-                   opacity: { duration: 0.4 }
-                }}
-              />
-
-              {/* Jerry - Bottom Right */}
+              {/* Jerry - Now on the Left, Inverted */}
               <motion.img 
                 src="/jerry.png"
                 alt="Jerry"
-                className="absolute -bottom-10 -right-6 w-20 sm:w-28 z-50 pointer-events-none drop-shadow-xl"
-                initial={{ opacity: 0, scale: 0.8, rotate: -15 }}
+                className="absolute top-[25%] -left-6 w-20 sm:w-28 z-50 pointer-events-none drop-shadow-xl"
+                initial={{ opacity: 0, scaleX: -0.8, scaleY: 0.8, rotate: -15 }}
                 animate={{ 
                   opacity: 1, 
-                  scale: 1, 
-                  rotate: -25,
+                  scaleX: -1, 
+                  scaleY: 1,
+                  rotate: -20,
                   y: [0, -15, 0]
                 }}
                 exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.2 } }}
@@ -123,22 +105,41 @@ const HeroEnvelope = ({ onOpen }) => {
                 }}
               />
 
-              {/* Tom - Bottom Left */}
+              {/* Tom - Now on the Right */}
               <motion.img 
                 src="/tom.png"
                 alt="Tom"
-                className="absolute -bottom-14 -left-8 w-32 sm:w-48 z-50 pointer-events-none drop-shadow-xl"
-                initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
+                className="absolute top-[35%] -right-10 w-28 sm:w-40 z-50 pointer-events-none drop-shadow-xl"
+                initial={{ opacity: 0, scale: 0.8, rotate: 10 }}
                 animate={{ 
                   opacity: 1, 
                   scale: 1, 
-                  rotate: -15,
+                  rotate: -10,
                   y: [0, -15, 0]
                 }}
                 exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.2 } }}
                 transition={{ 
                   y: { repeat: Infinity, duration: 1.5, ease: "easeInOut", delay: 0.2 },
                   opacity: { duration: 0.4 }
+                }}
+              />
+
+              {/* Mickey Mouse - Directly below the Seal */}
+              <motion.img 
+                src="/mickey%20mouse.png"
+                alt="Mickey"
+                className="absolute -bottom-24 left-1/2 -ml-14 w-28 sm:w-40 z-50 pointer-events-none drop-shadow-xl"
+                initial={{ opacity: 0, scale: 0.8, rotate: 5 }}
+                animate={{ 
+                  opacity: 1, 
+                  scale: 1, 
+                  rotate: 0,
+                  y: [0, -20, 0]
+                }}
+                exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.2 } }}
+                transition={{ 
+                   y: { repeat: Infinity, duration: 1.5, ease: "easeInOut", delay: 0 },
+                   opacity: { duration: 0.4 }
                 }}
               />
             </>
