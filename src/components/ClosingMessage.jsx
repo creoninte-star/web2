@@ -36,7 +36,7 @@ const ClosingMessage = () => {
 
         {/* Invitation Message */}
         <p className="font-sans text-[10px] sm:text-[11px] leading-loose tracking-[0.15em] uppercase text-textDark/80 mb-6 max-w-[320px]">
-          Insha Allah, your esteemed presence and heartfelt prayers are the most beautiful gifts we could ask for on this blessed occasion. 
+          InshaAllah, your esteemed presence and heartfelt prayers are the most beautiful gifts we could ask for on this blessed occasion. 
           <br/><br/>
           We, along with our families, warmly invite you to share our joy.
         </p>
@@ -47,9 +47,6 @@ const ClosingMessage = () => {
         <h3 className="font-serif text-2xl sm:text-3xl text-gold italic drop-shadow-sm">
           With Love & Duas
         </h3>
-        <p className="font-sans text-[8px] sm:text-[9px] uppercase tracking-[0.4em] text-sage font-bold mt-4">
-          Siblings & The Families
-        </p>
         <p className="font-sans text-[9px] sm:text-[10px] uppercase tracking-[0.2em] text-textDark/60 mt-3 font-medium">
           Raizy, Rafsi, Rasna & Families
         </p>

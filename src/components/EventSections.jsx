@@ -504,9 +504,8 @@ const EventSections = ({ onAllRevealed }) => {
               <h3 className="font-sans text-[9px] uppercase tracking-widest text-[#899E8F] mb-1 font-bold">Nikkah Ceremony</h3>
               <p className="font-serif text-xs text-gold font-bold italic tracking-wide mb-1">Dhuʻl-Qiʻdah 19</p>
               <p className="font-serif text-lg text-textDark font-bold">Wednesday, May 6</p>
+              <p className="font-sans text-[10px] text-gold font-bold uppercase tracking-[0.2em] mt-2 underline decoration-gold/30 underline-offset-4 mb-4">After Asar</p>
               <CountdownDisplay targetDateIso="2026-05-06T16:00:00" revealed={revealed} />
-              <p className="font-serif text-sm text-textDark/80">4:00 PM onwards</p>
-              <p className="font-sans text-[10px] text-gold font-bold uppercase tracking-[0.2em] mt-2 underline decoration-gold/30 underline-offset-4">After Asar</p>
             </div>
 
             <div className="w-16 h-px bg-gold/20 mx-auto my-4"></div>
@@ -515,9 +514,13 @@ const EventSections = ({ onAllRevealed }) => {
               <h3 className="font-sans text-[9px] uppercase tracking-widest text-[#899E8F] mb-1 font-bold">Marriage Function</h3>
               <p className="font-serif text-xs text-gold font-bold italic tracking-wide mb-1">Dhuʻl-Qiʻdah 20</p>
               <p className="font-serif text-lg text-textDark font-bold">Thursday, May 7</p>
+              
+              <div className="flex flex-col items-center gap-1 mt-2 mb-4">
+                <p className="font-serif text-sm text-textDark/80">Starting at 11:00 AM</p>
+                <p className="font-sans text-[10px] text-gold font-bold uppercase tracking-[0.2em] underline decoration-gold/30 underline-offset-4">After Asar</p>
+              </div>
+
               <CountdownDisplay targetDateIso="2026-05-07T11:00:00" revealed={revealed} />
-              <p className="font-serif text-sm text-textDark/80">Starting at 11:00 AM</p>
-              <p className="font-sans text-[10px] text-gold font-bold uppercase tracking-[0.2em] mt-2 underline decoration-gold/30 underline-offset-4">After Asar</p>
               
               <div className="mt-4 p-2 border border-gold/10 rounded-lg bg-gold/5">
                 <p className="font-sans text-[9px] text-sage font-bold tracking-[0.15em] uppercase italic">Bride Entry: 5:30 PM - 6:00 PM</p>
