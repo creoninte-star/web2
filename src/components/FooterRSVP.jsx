@@ -11,7 +11,8 @@ const FooterRSVP = () => {
   const [formData, setFormData] = React.useState({
     name: '',
     email: '',
-    guestCount: '1',
+    contactInfo: '',
+    guestCount: '',
     luckyDrawEntry: true
   });
   const [isSubmitting, setIsSubmitting] = React.useState(false);
@@ -33,6 +34,7 @@ const FooterRSVP = () => {
       const payload = {
         name: formData.name,
         email: formData.email,
+        contactInfo: formData.contactInfo,
         guestCount: formData.guestCount
       };
 
@@ -108,9 +110,9 @@ const FooterRSVP = () => {
         <div className="absolute top-1/2 -ml-3 left-0 w-6 h-6 bg-[#F6EAEB] rounded-full -translate-y-1/2 border-r border-sage/20 z-10"></div>
         <div className="absolute top-1/2 -mr-3 right-0 w-6 h-6 bg-[#F6EAEB] rounded-full -translate-y-1/2 border-l border-sage/20 z-10"></div>
 
-        {/* Ticket Top - RSVP */}
         <div className="p-8 border-b-2 border-dashed border-gold/30 relative text-center">
-          <h2 className="font-serif text-3xl text-textDark mb-2 capitalize">Will you attend?</h2>
+          <h2 className="font-serif text-3xl text-textDark mb-1 capitalize">Will you attend?</h2>
+          <p className="font-sans text-[10px] italic text-gold/80 mb-3">*If yes a surprise is waiting for you</p>
           <div className="w-12 h-px bg-gold/30 mx-auto"></div>
         </div>
 
@@ -198,12 +200,21 @@ const FooterRSVP = () => {
                   className="w-full bg-transparent border-b border-gold/30 py-2 font-sans text-sm focus:outline-none focus:border-gold placeholder:text-sage/40 text-textDark"
                 />
                 <input 
+                  type="text" 
+                  name="contactInfo"
+                  required
+                  value={formData.contactInfo}
+                  onChange={handleChange}
+                  placeholder="Insta ID or Mobile Number" 
+                  className="w-full bg-transparent border-b border-gold/30 py-2 font-sans text-sm focus:outline-none focus:border-gold placeholder:text-sage/40 text-textDark"
+                />
+                <input 
                   type="number" 
                   name="guestCount"
                   required
                   value={formData.guestCount}
                   onChange={handleChange}
-                  placeholder="Number of Guests" 
+                  placeholder="Guest Numbers" 
                   min="1"
                   className="w-full bg-transparent border-b border-gold/30 py-2 font-sans text-sm focus:outline-none focus:border-gold placeholder:text-sage/40 text-textDark"
                 />
